@@ -1,0 +1,45 @@
+###################################################
+# Abstract unit class
+class Unit:
+	initialization:
+		setSprite()
+		setHealth()
+		setWeapon()
+		setInitialLoc()
+	attributes:
+		health :: Int
+		weapon :: Weapon
+		sprite :: Surface (see: https://www.pygame.org/docs/ref/image.html)
+		xloc   :: Int
+		yloc   :: Int
+	methods:
+		getHealth()       :: Int
+		setHealth(Int)    :: Void
+		setWeapon(Weapon) :: Void
+		getWeapon()       :: Weapon
+		setSprite(String) :: Void  
+		getSprite()       :: Surface
+		getx()            :: Int
+		gety()            :: Int
+		setNextLocation() :: Void # for player, gets user input, for enemy, use movement pattern
+		
+	# added methods for Player interface of Unit class
+	class Player:
+		methods:
+			setNextLocation() :: Void # gets user input, moves sprite accordingly
+			
+	# added methods and initialization procedures for Enemy interface of Unit class
+	class Enemy:
+		initialization:
+			setMovementPattern()
+		methods:
+			movementPattern(Int,Int)                    :: (Int,Int) # function that will get location of unit for next frame
+			setMovementPattern(Int -> Int -> (Int,Int)) :: Void      # changes movement pattern function
+			
+			
+###################################################
+# Projectile Class
+# 	The actual projectile, each individual bullet
+
+class Projectile
+# Weapon Class
