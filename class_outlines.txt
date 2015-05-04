@@ -2,10 +2,11 @@
 # Abstract unit class
 class Unit:
 	initialization:
-		setSprite()
-		setHealth()
-		setWeapon()
-		setInitialLoc()
+		setSprite(String)
+		setHealth(Int)
+		setWeapon(Weapon)
+		setx(Int)
+		sety(Int)
 	attributes:
 		health :: Int
 		weapon :: Weapon
@@ -20,16 +21,20 @@ class Unit:
 		setSprite(String) :: Void  
 		getSprite()       :: Surface
 		getx()            :: Int
+		setx(Int)		  :: Void
 		gety()            :: Int
-		setNextLocation() :: Void # for player, gets user input, for enemy, use movement pattern
+		sety(Int)		  :: Void
+		setNextLocation() :: Void # for player, gets user input, for enemy, use movement pattern, also call Weapon.setx/y(Int) during this
 		
 	# added methods for Player interface of Unit class
 	class Player:
+		# inputs: (sprite filepath, health, weapon, xinit, yinit)
 		methods:
 			setNextLocation() :: Void # gets user input, moves sprite accordingly
 			
 	# added methods and initialization procedures for Enemy interface of Unit class
 	class Enemy:
+		# inputs: (sprite filepath, health, weapon, xinit, yinit, movement pattern)
 		initialization:
 			setMovementPattern()
 		methods:
@@ -39,7 +44,69 @@ class Unit:
 			
 ###################################################
 # Projectile Class
-# 	The actual projectile, each individual bullet
+# 	Abstract projectile class, the actual bullet
+#   The only real differences between the instantiations of the projectile class will be
+#		the sprite being used and the movement speed, we can probably use the same movementPattern()
+#		method for all of them.
+#	For the movement pattern I'm thinking we should have a speed attribute (pixel/frame or something)
+#		and an angle for the projectile to travel.  Then in the Weapon class you can make a spraying
+#		weapon that just cycles through several angles
+#	Note: this outline does not account for AoE projectiles (bombs, etc.), which I think is outside
+#		the scope of the project.
+class Projectile:
+	# inputs: (x, y, speed, angle, damage, sprite filepath)
+	initializations:
+		setSprite(String)
+		setSpeed(Int)
+		setAngle(Double)
+		setx(Int)
+		sety(Int)
+		setDamage(Int)
+	attributes:
+		xloc   :: Int
+		yloc   :: Int
+		sprite :: Surface
+		speed  :: Int     # value that sets the speed of the projectile
+		angle  :: Double  # value that sets the angle of the projectile
+		damage :: Int     # how much health is taken away from player when contact is made
+	methods:
+		getx() 					 :: Int
+		setx(Int)				 :: Void
+		gety() 					 :: Int
+		sety(Int)				 :: Void
+		setNextLocation() 		 :: (Int, Int)
+		getSprite() 			 :: Surface
+		setSprite(String) 		 :: Void
+		setSpeed(Int) 			 :: Void
+		setAngle(Double) 		 :: Void
+		movementPattern(Int,Int) :: (Int,Int) # function that will get location of projectile for next frame, uses speed and angle in calculation
 
-class Projectile
+###################################################
 # Weapon Class
+# 	Abstract weapon class
+#	A means of keeping track of the projectiles a unit shoots out, including optimization	
+class Weapon
+	# inputs: (x, y, ProjType)
+	initializations:
+		setx()
+		sety()
+		setProjType()
+		updateProj()
+	attributes:
+		proj :: [Projectile] # array of projectiles being fired from this weapon
+		xloc :: Int
+		yloc :: Int
+		
+	methods:
+		getx() 					 :: Int
+		setx(Int)				 :: Void
+		gety() 					 :: Int
+		sety(Int)				 :: Void
+		getProj()       		 :: [Projectile]
+		# first updateProj updates the weapons x,y location,
+		#	then it checks if it is time to add another projectile,
+		#		if so, it appends it to the proj array
+		#	then it cycles through all the projectiles, calls setNextLocation,
+		#		and then if the projectile is off screen, removes it.
+		updateProj(Int,Int)      :: Void 
+		setProjType(Projectile)  :: Void # sets projectile type to use
