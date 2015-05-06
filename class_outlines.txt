@@ -67,19 +67,21 @@ class Projectile:
 		yloc   :: Int
 		sprite :: Surface
 		speed  :: Int     # value that sets the speed of the projectile
-		angle  :: Double  # value that sets the angle of the projectile
+		angle  :: Double  # value that sets the angle of the projectile, in radians
 		damage :: Int     # how much health is taken away from player when contact is made
 	methods:
 		getx() 					 :: Int
 		setx(Int)				 :: Void
 		gety() 					 :: Int
 		sety(Int)				 :: Void
-		setNextLocation() 		 :: (Int, Int)
+		setNextLocation() 		 :: (Int, Int) # changes projectile's coordinates to next frame
 		getSprite() 			 :: Surface
 		setSprite(String) 		 :: Void
 		setSpeed(Int) 			 :: Void
-		setAngle(Double) 		 :: Void
-		movementPattern(Int,Int) :: (Int,Int) # function that will get location of projectile for next frame, uses speed and angle in calculation
+		setAngle(Double) 		 :: Void       # 0 -> completely right, pi/2 -> completely down, pi -> completely left
+		movementPattern(Int,Int) :: (Int,Int)  # function that will get location of projectile for next frame, uses speed and angle in calculation
+		                                       # basically returns (cos(angle) * speed, sin(angle) * speed)
+											   # possibly have to convert from double to int, 
 
 ###################################################
 # Weapon Class
