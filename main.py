@@ -68,7 +68,7 @@ player_proj_holder = projectile.projectile_holder_object(p_proj_art_arr,size)
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
 menu_font  = pygame.font.SysFont('Calibri', 50, True, False)
-ui_font    = pygame.font.SysFont('Calibri', 25, True, False)
+hud_font   = pygame.font.SysFont('Calibri', 25, True, False)
 
 #tracks frames for timers
 frame_counter = 0
@@ -151,15 +151,15 @@ def main_menu():
     screen.blit(exit_text_1,  [262, 595])
     screen.blit(exit_text_2,  [203, 640])
 	
-# layers the UI on top of the game
-def ui():
+# layers the hud on top of the game
+def hud():
 	# health and points values
 	health = player.getHP()
 	points = 0
 	
 	# render strings to text
-	health_text = ui_font.render("Health: " + str(health), True, WHITE)
-	points_text = ui_font.render("Points: " + str(points), True, WHITE)
+	health_text = hud_font.render("Health: " + str(health), True, WHITE)
+	points_text = hud_font.render("Points: " + str(points), True, WHITE)
 	
 	# put the image of the text on the screen in the bottom left corner (
 	screen.blit(health_text, [15, 730])
@@ -266,8 +266,8 @@ while not done:
         player_proj_holder.draw(screen)
         player.draw(screen)
         enemy_proj_holder.draw(screen)
-        # adds UI
-        ui()
+        # adds hud
+        hud()
     
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
