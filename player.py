@@ -2,7 +2,7 @@ class player_object (object):
         def __init__(self,art,context_size):
             self.art = art
             self.context_size = context_size
-            self.pos = [self.context_size[0]/2,self.context_size[1]/2]
+            self.pos = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
             self.vel = [0,0]
 
         def x_vel(self,vel):

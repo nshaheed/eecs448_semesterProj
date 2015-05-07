@@ -3,6 +3,7 @@ import pygame
 import math
 import player
 import menu
+import background
 # initializing pygame
 pygame.init()
 
@@ -51,6 +52,7 @@ print("Art loaded!")
 
 # object initialization
 player = player.player_object(player_ship,size)
+starfield = background.starfield_object(size)
 
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
@@ -111,17 +113,21 @@ while not done:
                 pass
             print("User let go of a key.")
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if mouse_pos[0]<426 and mouse_pos[0]>174:
-                if mouse_pos[1]<559 and mouse_pos[1]>459:
-                    print("User wants to play!")
-                    #game.init()
-                    running=True;
-                elif mouse_pos[1]<689 and mouse_pos[1]>589:
-                    done = True  # Flag that we are done so we exit this loop
-                    print("User wants to leave...")
+            if not running:
+                if mouse_pos[0]<426 and mouse_pos[0]>174:
+                    if mouse_pos[1]<559 and mouse_pos[1]>459:
+                        print("User wants to play!")
+                        #game.init()
+                        running=True;
+                    elif mouse_pos[1]<689 and mouse_pos[1]>589:
+                        done = True  # Flag that we are done so we exit this loop
+                        print("User wants to leave...")
             print("User pressed a mouse button")
             
     # Game logic should go here
+
+    #update starfield background
+    starfield.update()
 
     if not running:
         pass
@@ -136,10 +142,19 @@ while not done:
     # above this, or they will be erased with this command.
     screen.fill(BLACK)
 
+    #draw starfield background
+    starfield.draw(screen)
     
     if not running:
         #call menu class and do menu things
 
+        #menu ship preview
+        screen.blit(player_ship, ((size[0]/2)-16, (size[1]/2)-16))
+        screen.blit(enemy_ship, ((size[0]/2)-121, 60))
+        screen.blit(enemy_ship, ((size[0]/2)+89, 60))
+        screen.blit(boss_ship, ((size[0]/2)-75, 20))
+
+        
         # menu structure code        
         pygame.draw.rect(screen, RED, [menu_pos[0][0],menu_pos[0][1],menu_pos[0][2],menu_pos[0][3]])
         pygame.draw.rect(screen, RED, [menu_pos[1][0],menu_pos[1][1],menu_pos[1][2],menu_pos[1][3]])
@@ -167,5 +182,6 @@ while not done:
     pygame.display.flip()
  
     # --- Limit to 60 frames per second
-    clock.tick(60)
+    #clock.tick(60)
+    clock.tick_busy_loop(60)
 pygame.quit()
