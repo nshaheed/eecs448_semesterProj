@@ -6,7 +6,7 @@ import menu
 import background
 # initializing pygame
 pygame.init()
-
+print(str(pygame.mixer.get_num_channels()))
 # Color definitions
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
@@ -23,8 +23,9 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("PySho!")
 
 # music loader
-menu_music = pygame.mixer.Sound("Assets/Music/main_menu.mp3")
-game_session_music = pygame.mixer.Sound("Assets/Music/gmPly.mp3")
+#menu_music = pygame.mixer.music.load("Assets/Music/main_menu.mp3")
+pygame.mixer.music.load("Assets/Music/main_menu.mp3")
+#game_session_music = pygame.mixer.music.load("Assets/Music/gmPly.mp3")
 print("Music loaded!")
 
 # soundFX loader
@@ -72,7 +73,7 @@ clock = pygame.time.Clock()
 
 # holds menu button positions and sizes
 menu_pos = [(90,120,420,200),(175,460,250,100),(175,590,250,100)]
-
+pygame.mixer.music.play(-1)
 while not done:
     # Main event loop
     
@@ -119,6 +120,9 @@ while not done:
                         print("User wants to play!")
                         #game.init()
                         running=True;
+                        pygame.mixer.music.fadeout(500)
+                        pygame.mixer.music.load("Assets/Music/gmPly.mp3")
+                        pygame.mixer.music.play(-1)
                     elif mouse_pos[1]<689 and mouse_pos[1]>589:
                         done = True  # Flag that we are done so we exit this loop
                         print("User wants to leave...")
