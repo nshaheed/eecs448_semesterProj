@@ -1,6 +1,7 @@
 class player_object (object):
         def __init__(self,art,context_size):
             self.art = art
+            self.hp = 100
             self.context_size = context_size
             self.pos = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
             self.vel = [0,0]
@@ -20,4 +21,8 @@ class player_object (object):
         def draw(self, context):
             context.blit(self.art, self.pos)
          
-        
+        def getHP(self):
+                return self.hp
+
+        def setHP(self,hp):
+                self.hp = hp
