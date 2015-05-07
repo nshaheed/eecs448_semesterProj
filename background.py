@@ -2,19 +2,26 @@ import random
 import pygame
 class starfield_object (object):
     def __init__(self, context_size):
+        self.WHITE    = ( 255, 255, 255)
+        self.MAX_STARS = 200#200 looks good
         self.context_size = context_size
         self.star_arr = []
         self.star_arr_init()
-        self.WHITE    = ( 255, 255, 255)
+        print("Parallax BG initialized!")
+        
     def star_arr_init(self):
-        for i in range(0,200):
-            s = random.randint(1,4)
-            x = random.randint(-3,self.context_size[0]-5)
-            y = random.randint(-200,self.context_size[1])
-            w = random.randint(1,3)
-            l = random.randint(1,6)
-            v = random.randint(2,7)
-            d = 0 #randint(-200,context_size[1])
+        for i in range(0,self.MAX_STARS):
+            s = random.randint(1,4)#(1,4) is good
+            x = random.randint(-3,self.context_size[0]-5)#(-3,self.context_size[0]-5) is good
+            y = random.randint(-200,self.context_size[1])#(-200,self.context_size[1]) is good
+            w = random.randint(1,3)#(1,3) is good
+            l = random.randint(1,3)#(1,3) is good
+            v = random.randint(1,100)#(2,7) is good (no loop needed) the loop method looks better with (2,20)
+            if v<100:
+                v=((v/2)%4)+2
+            else:
+                v=18
+            d = 0 #randint(0,4)-2
             new_star = star_object(self.context_size,s,x,y,w,l,v,d)
             self.star_arr.append(new_star)
 
@@ -45,6 +52,7 @@ class star_object (object):
         if ((self.y_loc+self.y_vel+self.size)<=self.context_size[1]):
             self.y_loc = self.y_loc+self.y_vel
         else:
-            self.y_loc = -200
+            self.y_loc = random.randint(-350,-50)
+            self.x_loc = random.randint(-3,self.context_size[0]-5)#(-3,self.context_size[0]-5) is good
             
             

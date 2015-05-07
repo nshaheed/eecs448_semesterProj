@@ -14,6 +14,9 @@ GREEN    = (   0, 255,   0)
 RED      = ( 255,   0,   0)
 BLUE     = (   0,   0, 255)
 
+#defins max fps
+GAME_FPS = 60
+
 #player move speed
 PLAYER_VEL = 5
 
@@ -187,5 +190,5 @@ while not done:
  
     # --- Limit to 60 frames per second
     #clock.tick(60)
-    clock.tick_busy_loop(60)
+    clock.tick_busy_loop(GAME_FPS)
 pygame.quit()
