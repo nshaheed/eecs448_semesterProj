@@ -63,12 +63,12 @@ class Projectile:
 		sety(Int)
 		setDamage(Int)
 	attributes:
-		xloc   :: Int
-		yloc   :: Int
+		x      :: Int
+		y      :: Int
 		sprite :: Surface
 		speed  :: Int     # value that sets the speed of the projectile
 		angle  :: Double  # value that sets the angle of the projectile, in radians
-		damage :: Int     # how much health is taken away from player when contact is made
+		damage :: Int     # how much health is taken away from opponent when contact is made. Note: might have to add a side value to avoid friendly fire
 	methods:
 		getx() 					 :: Int
 		setx(Int)				 :: Void
@@ -79,6 +79,7 @@ class Projectile:
 		setSprite(String) 		 :: Void
 		setSpeed(Int) 			 :: Void
 		setAngle(Double) 		 :: Void       # 0 -> completely right, pi/2 -> completely down, pi -> completely left
+		getDamage()              :: Int
 		movementPattern(Int,Int) :: (Int,Int)  # function that will get location of projectile for next frame, uses speed and angle in calculation
 		                                       # basically returns (cos(angle) * speed, sin(angle) * speed)
 											   # possibly have to convert from double to int, 
@@ -110,5 +111,8 @@ class Weapon
 		#		if so, it appends it to the proj array
 		#	then it cycles through all the projectiles, calls setNextLocation,
 		#		and then if the projectile is off screen, removes it.
+		#	for enemies, the projectile will have a positive speed, and for
+		#		the player will have a negative speed (assuming (0,0) is the 
+		#		top left corner
 		updateProj(Int,Int)      :: Void 
 		setProjType(Projectile)  :: Void # sets projectile type to use

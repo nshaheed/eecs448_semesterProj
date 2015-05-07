@@ -78,10 +78,10 @@ spawn_proj = False
 # value to keep the program running or exit
 done = False
 
-#value to track wether a game is in session or not
+#value to track whether a game is in session or not
 running = False
 
-#value to track wether a game is in paused or not
+#value to track whether a game is in paused or not
 paused = False
 
 # Used to manage how fast the screen updates
@@ -90,6 +90,66 @@ clock = pygame.time.Clock()
 # holds menu button positions and sizes
 menu_pos = [(90,120,420,200),(175,460,250,100),(175,590,250,100)]
 pygame.mixer.music.play(-1)
+
+# move this to separate file eventually
+def pause_menu():
+    #call menu class and do menu things
+
+    #menu ship preview
+    screen.blit(player_ship, ((size[0]/2)-16, (size[1]/2)-16))
+    screen.blit(enemy_ship, ((size[0]/2)-121, 60))
+    screen.blit(enemy_ship, ((size[0]/2)+89, 60))
+    screen.blit(boss_ship, ((size[0]/2)-75, 20))
+
+        
+    # menu structure code        
+    pygame.draw.rect(screen, RED, [menu_pos[0][0],menu_pos[0][1],menu_pos[0][2],menu_pos[0][3]])
+    pygame.draw.rect(screen, RED, [menu_pos[1][0],menu_pos[1][1],menu_pos[1][2],menu_pos[1][3]])
+    pygame.draw.rect(screen, RED, [menu_pos[2][0],menu_pos[2][1],menu_pos[2][2],menu_pos[2][3]])
+
+    #render strings to text
+    title_text = title_font.render("PySho!",True,WHITE)
+    start_text_1 = menu_font.render("Resume",True,WHITE)
+    start_text_2 = menu_font.render("conquering",True,WHITE)
+    exit_text_1 = menu_font.render("Exit",True,WHITE)
+    exit_text_2 = menu_font.render("to class...",True,WHITE)
+        
+    # Put the image of the text on the screen at 250x250
+    screen.blit(title_text, [98, 155])
+    screen.blit(start_text_1, [211, 460])
+    screen.blit(start_text_2, [186, 505])
+    screen.blit(exit_text_1, [262, 595])
+    screen.blit(exit_text_2, [203, 640])
+	
+def main_menu():
+    #call menu class and do menu things
+
+    #menu ship preview
+    screen.blit(player_ship, ((size[0]/2)-16, (size[1]/2)-16))
+    screen.blit(enemy_ship, ((size[0]/2)-121, 60))
+    screen.blit(enemy_ship, ((size[0]/2)+89, 60))
+    screen.blit(boss_ship, ((size[0]/2)-75, 20))
+
+        
+    # menu structure code        
+    pygame.draw.rect(screen, RED, [menu_pos[0][0],menu_pos[0][1],menu_pos[0][2],menu_pos[0][3]])
+    pygame.draw.rect(screen, RED, [menu_pos[1][0],menu_pos[1][1],menu_pos[1][2],menu_pos[1][3]])
+    pygame.draw.rect(screen, RED, [menu_pos[2][0],menu_pos[2][1],menu_pos[2][2],menu_pos[2][3]])
+
+    #render strings to text
+    title_text = title_font.render("PySho!",True,WHITE)
+    start_text_1 = menu_font.render("Conquer",True,WHITE)
+    start_text_2 = menu_font.render("your foes!!",True,WHITE)
+    exit_text_1 = menu_font.render("Exit",True,WHITE)
+    exit_text_2 = menu_font.render("to class...",True,WHITE)
+        
+    # Put the image of the text on the screen at 250x250
+    screen.blit(title_text, [98, 155])
+    screen.blit(start_text_1, [211, 460])
+    screen.blit(start_text_2, [186, 505])
+    screen.blit(exit_text_1, [262, 595])
+    screen.blit(exit_text_2, [203, 640])
+	
 while not done:
     # Main event loop
     
@@ -104,7 +164,10 @@ while not done:
             # Figure out if it was an arrow key. If so
             # adjust speed.
             if event.key == pygame.K_ESCAPE:
-                done = True
+				running = False
+				paused  = True
+#			if event.key == pygame.K_ESCAPE: # have escape pause the game
+#                done = True
             if event.key == pygame.K_a:
                 player.x_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_d:
@@ -177,33 +240,10 @@ while not done:
     starfield.draw(screen)
     
     if not running:
-        #call menu class and do menu things
-
-        #menu ship preview
-        screen.blit(player_ship, ((size[0]/2)-16, (size[1]/2)-16))
-        screen.blit(enemy_ship, ((size[0]/2)-121, 60))
-        screen.blit(enemy_ship, ((size[0]/2)+89, 60))
-        screen.blit(boss_ship, ((size[0]/2)-75, 20))
-
-        
-        # menu structure code        
-        pygame.draw.rect(screen, RED, [menu_pos[0][0],menu_pos[0][1],menu_pos[0][2],menu_pos[0][3]])
-        pygame.draw.rect(screen, RED, [menu_pos[1][0],menu_pos[1][1],menu_pos[1][2],menu_pos[1][3]])
-        pygame.draw.rect(screen, RED, [menu_pos[2][0],menu_pos[2][1],menu_pos[2][2],menu_pos[2][3]])
-
-        #render strings to text
-        title_text = title_font.render("PySho!",True,WHITE)
-        start_text_1 = menu_font.render("Conquer",True,WHITE)
-        start_text_2 = menu_font.render("your foes!!",True,WHITE)
-        exit_text_1 = menu_font.render("Exit",True,WHITE)
-        exit_text_2 = menu_font.render("to class...",True,WHITE)
-        
-        # Put the image of the text on the screen at 250x250
-        screen.blit(title_text, [98, 155])
-        screen.blit(start_text_1, [211, 460])
-        screen.blit(start_text_2, [186, 505])
-        screen.blit(exit_text_1, [262, 595])
-        screen.blit(exit_text_2, [203, 640])
+		if not paused:
+			main_menu()
+		else:
+			pause_menu()
 
     else:
         #call game class and do game things and update game variables and stuff
