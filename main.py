@@ -4,8 +4,11 @@ import math
 import player
 import menu
 import background
+import projectile
+
 # initializing pygame
 pygame.init()
+
 print(str(pygame.mixer.get_num_channels()))
 # Color definitions
 BLACK    = (   0,   0,   0)
@@ -49,18 +52,28 @@ boss_ship = pygame.image.load("Assets/Art/enemy_ship_mb0.png")#.convert()
 shield = pygame.image.load("Assets/Art/shield_dmg_0.png")#.convert()
 shield_dmg = pygame.image.load("Assets/Art/shield_dmg_1.png")#.convert()
 # projectiles
-enemy_projectile_1 = pygame.image.load("Assets/Art/Eprojectile_2.png")#.convert()
-enemy_projectile_2 = pygame.image.load("Assets/Art/Eprojectile.png")#.convert()
-player_projectile = pygame.image.load("Assets/Art/projectile.png")#.convert()
+p_proj_art_arr = [] #order is player proj
+e_proj_art_arr = [] #order is eproj, eproj2
+p_proj_art_arr.append(pygame.image.load("Assets/Art/projectile.png"))#.convert())
+e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile_2.png"))#.convert())
+e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile.png"))#.convert())
 print("Art loaded!")
 
 # object initialization
 player = player.player_object(player_ship,size)
 starfield = background.starfield_object(size)
+enemy_proj_holder = projectile.projectile_holder_object(e_proj_art_arr,size)
+player_proj_holder = projectile.projectile_holder_object(p_proj_art_arr,size)
 
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
 menu_font = pygame.font.SysFont('Calibri', 50, True, False)
+
+#tracks frames for timers
+frame_counter = 0
+
+#value to determine if the player is shooting or not
+spawn_proj = False
                 
 # value to keep the program running or exit
 done = False
@@ -101,7 +114,7 @@ while not done:
             if event.key == pygame.K_s:
                 player.y_vel(PLAYER_VEL)
             if event.key == pygame.K_SPACE:
-                pass           
+                spawn_proj = True           
             print("User pressed a key.")
         elif event.type == pygame.KEYUP:
             # If it is an arrow key, reset vector back to zero
@@ -114,7 +127,7 @@ while not done:
             if event.key == pygame.K_s:
                 player.y_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_SPACE:
-                pass
+                spawn_proj = False
             print("User let go of a key.")
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if not running:
@@ -141,7 +154,18 @@ while not done:
         #call menu class and do menu things
     else:
         #call game class and do game things and update game variables and stuff
+
+        #determines if the player is firing and limits then to a predefined firing rate (framerate/counter modulus)
+        if (spawn_proj):
+            if (not (frame_counter%8)):
+                player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
+
+        #updates player loc                
         player.update()
+
+        #updates the various projectile holders
+        player_proj_holder.update()
+        enemy_proj_holder.update()
     
     
     # Drawing code should go here  
@@ -183,12 +207,15 @@ while not done:
 
     else:
         #call game class and do game things and update game variables and stuff
+        player_proj_holder.draw(screen)
         player.draw(screen)
+        enemy_proj_holder.draw(screen)
     
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
  
     # --- Limit to 60 frames per second
     #clock.tick(60)
+    frame_counter = frame_counter+1    
     clock.tick_busy_loop(GAME_FPS)
 pygame.quit()

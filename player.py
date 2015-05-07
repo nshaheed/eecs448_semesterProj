@@ -12,6 +12,9 @@ class player_object (object):
         def y_vel(self,vel):
             self.vel[1]=self.vel[1]+vel
 
+        def get_pos(self):
+            return self.pos
+
         def update(self):
             if self.pos[0]+self.vel[0]>=0 and self.pos[0]+self.vel[0]+32<=self.context_size[0]:
                 self.pos[0] = self.pos[0]+self.vel[0]
