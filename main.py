@@ -5,6 +5,7 @@ import player
 import menu
 import background
 import projectile
+import threading
 
 # initializing pygame
 pygame.init()
@@ -51,6 +52,7 @@ boss_ship      = pygame.image.load("Assets/Art/enemy_ship_mb0.png")#.convert()
 # shields
 shield         = pygame.image.load("Assets/Art/shield_dmg_0.png")#.convert()
 shield_dmg     = pygame.image.load("Assets/Art/shield_dmg_1.png")#.convert()
+
 # projectiles
 p_proj_art_arr = [] #order is player proj
 e_proj_art_arr = [] #order is eproj, eproj2
@@ -236,7 +238,13 @@ while not done:
 
     #update starfield background
     if not paused:
-        starfield.update()
+        print(frame_counter)
+        #threading usage example. I'd like to contain the big
+        #update sweeps in individual threads per object.
+        #Ex, starfield update thread, projectile thread, enemy ai thread,...
+        starfield_t=threading.Thread(target=starfield.update)
+        starfield_t.start()
+        #starfield.update()
 
     if not running:
         pass
@@ -249,7 +257,7 @@ while not done:
             if (not (frame_counter%8)):
                 player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
-        #updates player loc                
+        #updates player loc
         player.update()
 		
         #updates the various projectile holders
@@ -263,6 +271,7 @@ while not done:
     screen.fill(BLACK)
 
     #draw starfield background
+    starfield_t.join()
     starfield.draw(screen)
     
     # if not running, call pause/main menu, otherwise do game stuff
