@@ -238,7 +238,6 @@ while not done:
 
     #update starfield background
     if not paused:
-        print(frame_counter)
         #threading usage example. I'd like to contain the big
         #update sweeps in individual threads per object.
         #Ex, starfield update thread, projectile thread, enemy ai thread,...
