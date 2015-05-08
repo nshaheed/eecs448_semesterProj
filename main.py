@@ -97,7 +97,7 @@ def pause_menu():
     #call menu class and do menu things
 
     #menu ship preview
-    screen.blit(player_ship, ((size[0]/2)-16, (size[1]/2)-16))
+    screen.blit(player_ship, player.get_pos())
     screen.blit(enemy_ship,  ((size[0]/2)-121, 60))
     screen.blit(enemy_ship,  ((size[0]/2)+89, 60))
     screen.blit(boss_ship,   ((size[0]/2)-75, 20))
