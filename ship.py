@@ -1,19 +1,32 @@
 class ship_object (object):
-        def __init__(self,art,context_size):
+        def __init__(self,art,context_size,weapon=0):
+            self.weapon = weapon
             self.art = art
             self.hp = 100
             self.context_size = context_size
             self.pos = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
             self.vel = [0,0]
 
-        def x_vel(self,vel):
+        def set_x_vel(self,vel):
+            self.vel[0]=vel
+            
+        def set_y_vel(self,vel):
+            self.vel[1]=vel
+
+        def mod_x_vel(self,vel):
             self.vel[0]=self.vel[0]+vel
             
-        def y_vel(self,vel):
+        def mod_y_vel(self,vel):
             self.vel[1]=self.vel[1]+vel
 
         def set_pos(self,pos):#pos must be a list [x_pos, y_pos]
             self.pos = pos
+
+        def set_weapon(weapon):
+                self.weapon = weapon
+
+        def get_weapon(self):
+                return self.weapon
 
         def set_x_pos(self,x_pos):
             self.pos[0] = x_pos

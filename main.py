@@ -179,31 +179,37 @@ while not done:
             # Figure out if it was an arrow key. If so
             # adjust speed.
             if event.key == pygame.K_ESCAPE:
-                running = False
-                paused  = True
+                if not paused:
+                    running = False
+                    paused  = True
+                    pygame.mixer.music.pause()
+                else:
+                    pygame.mixer.music.unpause()
+                    paused = False
+                    running = True
             #if event.key == pygame.K_ESCAPE: # have escape pause the game
             #done = True
             if event.key == pygame.K_a:
-                player.x_vel(-1*PLAYER_VEL)
+                player.mod_x_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_d:
-                player.x_vel(PLAYER_VEL)
+                player.mod_x_vel(PLAYER_VEL)
             if event.key == pygame.K_w:
-                player.y_vel(-1*PLAYER_VEL)
+                player.mod_y_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_s:
-                player.y_vel(PLAYER_VEL)
+                player.mod_y_vel(PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = True           
             #print("User pressed a key.")
         elif event.type == pygame.KEYUP:
             # If it is an arrow key, reset vector back to zero
             if event.key == pygame.K_a:
-                player.x_vel(PLAYER_VEL)
+                player.mod_x_vel(PLAYER_VEL)
             if event.key == pygame.K_d:
-                player.x_vel(-1*PLAYER_VEL)
+                player.mod_x_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_w:
-                player.y_vel(PLAYER_VEL)
+                player.mod_y_vel(PLAYER_VEL)
             if event.key == pygame.K_s:
-                player.y_vel(-1*PLAYER_VEL)
+                player.mod_y_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = False
             #print("User let go of a key.")
@@ -213,10 +219,14 @@ while not done:
                     if mouse_pos[1]<559 and mouse_pos[1]>459:
                         #print("User wants to play!")
                         #game.init()
+                        if paused:
+                            paused = False
+                            pygame.mixer.music.unpause()
+                        else:
+                            pygame.mixer.music.fadeout(500)
+                            pygame.mixer.music.load("Assets/Music/gmPly.mp3")
+                            pygame.mixer.music.play(-1)
                         running=True;
-                        pygame.mixer.music.fadeout(500)
-                        pygame.mixer.music.load("Assets/Music/gmPly.mp3")
-                        pygame.mixer.music.play(-1)
                     elif mouse_pos[1]<689 and mouse_pos[1]>589:
                         done = True  # Flag that we are done so we exit this loop
                         #print("User wants to leave...")
@@ -225,7 +235,8 @@ while not done:
     # Game logic should go here
 
     #update starfield background
-    starfield.update()
+    if not paused:
+        starfield.update()
 
     if not running:
         pass
