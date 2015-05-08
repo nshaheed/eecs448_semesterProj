@@ -154,7 +154,7 @@ def main_menu():
 # layers the hud on top of the game
 def hud():
 	# health and points values
-	health = player.getHP()
+	health = player.get_hp()
 	points = 0
 	
 	# render strings to text
@@ -174,15 +174,15 @@ while not done:
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
-            print("User chose to quit.")
+            #print("User chose to quit.")
         elif event.type == pygame.KEYDOWN:
             # Figure out if it was an arrow key. If so
             # adjust speed.
             if event.key == pygame.K_ESCAPE:
-				running = False
-				paused  = True
-#			if event.key == pygame.K_ESCAPE: # have escape pause the game
-#                done = True
+                running = False
+                paused  = True
+            #if event.key == pygame.K_ESCAPE: # have escape pause the game
+            #done = True
             if event.key == pygame.K_a:
                 player.x_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_d:
@@ -193,7 +193,7 @@ while not done:
                 player.y_vel(PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = True           
-            print("User pressed a key.")
+            #print("User pressed a key.")
         elif event.type == pygame.KEYUP:
             # If it is an arrow key, reset vector back to zero
             if event.key == pygame.K_a:
@@ -206,12 +206,12 @@ while not done:
                 player.y_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = False
-            print("User let go of a key.")
+            #print("User let go of a key.")
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if not running:
                 if mouse_pos[0]<426 and mouse_pos[0]>174:
                     if mouse_pos[1]<559 and mouse_pos[1]>459:
-                        print("User wants to play!")
+                        #print("User wants to play!")
                         #game.init()
                         running=True;
                         pygame.mixer.music.fadeout(500)
@@ -219,8 +219,8 @@ while not done:
                         pygame.mixer.music.play(-1)
                     elif mouse_pos[1]<689 and mouse_pos[1]>589:
                         done = True  # Flag that we are done so we exit this loop
-                        print("User wants to leave...")
-            print("User pressed a mouse button")
+                        #print("User wants to leave...")
+            #print("User pressed a mouse button")
             
     # Game logic should go here
 
@@ -256,10 +256,10 @@ while not done:
     
     # if not running, call pause/main menu, otherwise do game stuff
     if not running:
-		if not paused:
-			main_menu()
-		else:
-			pause_menu()
+        if not paused:
+            main_menu()
+        else:
+            pause_menu()
 
     else:
         #call game class and do game things and update game variables and stuff
