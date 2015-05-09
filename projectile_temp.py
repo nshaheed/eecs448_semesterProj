@@ -5,8 +5,7 @@ class projectile_holder_object (object):
         self.MAX_PROJ = 200
         self.context_size = context_size
         self.art_arr = art_arr
-        for i in range(0,self.MAX_PROJ):
-            self.proj_arr.append(projectile_object())
+        [self.proj_arr.append(projectile_object()) for i in range(0,self.MAX_PROJ)]
         print("Projectile container populated!")
 
     def spawn_proj(self,stats):#the structure of stats is expected to be a list [art_ID,x_loc,y_loc,x_vel,y_vel,proj_type]
@@ -14,15 +13,11 @@ class projectile_holder_object (object):
         self.proj_ticker = (self.proj_ticker + 1)%self.MAX_PROJ
 
     def update(self):
-        for i in range (0,len(self.proj_arr)):
-            if self.proj_arr[i].active:
-                self.proj_arr[i].update()
+        [self.proj_arr[i].update() for i in range (0,len(self.proj_arr)) if self.proj_arr[i].active]
                 
     def draw(self,context):
-        for i in range (0,len(self.proj_arr)):
-            if self.proj_arr[i].active:
-                context.blit(self.art_arr[self.proj_arr[i].stats[0]],self.proj_arr[i].get_loc())
-
+        [context.blit(self.art_arr[self.proj_arr[i].stats[0]],self.proj_arr[i].get_loc()) for i in range (0,len(self.proj_arr)) if self.proj_arr[i].active]
+        
 class projectile_object (object):
     def __init__ (self):
         #the structure of stats is [art_ID,x_loc,y_loc,x_vel,y_vel,proj_type]

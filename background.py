@@ -26,13 +26,10 @@ class starfield_object (object):
             self.star_arr.append(new_star)
 
     def update(self):
-        for i in range(0,len(self.star_arr)):
-            self.star_arr[i].update()
+        [self.star_arr[i].update() for i in range(0,len(self.star_arr))]
 
     def draw(self, context):
-        for i in range(0,len(self.star_arr)):
-            pygame.draw.rect(context, self.WHITE,[self.star_arr[i].x_loc,self.star_arr[i].y_loc,self.star_arr[i].length,self.star_arr[i].width])
-
+        [pygame.draw.rect(context, self.WHITE,[self.star_arr[i].x_loc,self.star_arr[i].y_loc,self.star_arr[i].length,self.star_arr[i].width]) for i in range(0,len(self.star_arr))]
 
 class star_object (object):
     def __init__(self,context_size,size,x_loc,y_loc,length,width,y_vel,x_drift):
