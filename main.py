@@ -5,6 +5,8 @@ import player
 import menu
 import background
 import projectile
+import projectile2 
+import weapon
 
 # initializing pygame
 pygame.init()
@@ -44,7 +46,7 @@ print("SoundFX loaded!")
 
 # art loader
 # ships
-player_ship = pygame.image.load("Assets/Art/player_ship.png")#.convert()
+player_ship    = pygame.image.load("Assets/Art/player_ship.png")#.convert()
 enemy_ship     = pygame.image.load("Assets/Art/enemy_ship.png")#.convert()
 kamina_ship    = pygame.image.load("Assets/Art/kamina_ship.png")#.convert()
 boss_ship      = pygame.image.load("Assets/Art/enemy_ship_mb0.png")#.convert()
@@ -59,16 +61,30 @@ e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile_2.png"))#.conver
 e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile.png"))#.convert())
 print("Art loaded!")
 
+# initialize weapons & projectiles
+#     def __init__(self,coord,projType,movementPattern,context,context_size):
+#    def __init__(self, xval, yval, spd, ang, damg, filepath):
+
+# spawn a proj every other frame, returning 1.5 * pi when returning an angle
+def mvmtPtrn1(x):
+    if x % 8 == 0: # fire proj
+        return (1.5 * math.pi)
+    else:
+        return None
+        
+proj1    = projectile2.Projectile(0, 0, 1, 1.5 * math.pi, 10, "Assets/Art/projectile.png")
+weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
+
 # object initialization
-player             = player.player_object(player_ship,size)
+player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
 enemy_proj_holder  = projectile.projectile_holder_object(e_proj_art_arr,size)
 player_proj_holder = projectile.projectile_holder_object(p_proj_art_arr,size)
 
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
-menu_font  = pygame.font.SysFont('Calibri', 50, True, False)
-hud_font   = pygame.font.SysFont('Calibri', 25, True, False)
+menu_font  = pygame.font.SysFont('Calibri', 50,  True, False)
+hud_font   = pygame.font.SysFont('Calibri', 25,  True, False)
 
 #tracks frames for timers
 frame_counter = 0
@@ -116,11 +132,11 @@ def pause_menu():
     exit_text_2  = menu_font.render("to class...",True,WHITE)
         
     # Put the image of the text on the screen at 250x250
-    screen.blit(title_text, [98, 155])
+    screen.blit(title_text,   [98, 155])
     screen.blit(start_text_1, [211, 460])
     screen.blit(start_text_2, [186, 505])
-    screen.blit(exit_text_1, [262, 595])
-    screen.blit(exit_text_2, [203, 640])
+    screen.blit(exit_text_1,  [262, 595])
+    screen.blit(exit_text_2,  [203, 640])
 	
 def main_menu():
     #call menu class and do menu things
@@ -178,6 +194,8 @@ while not done:
         elif event.type == pygame.KEYDOWN:
             # Figure out if it was an arrow key. If so
             # adjust speed.
+            
+            # escape to pause/unpause the game
             if event.key == pygame.K_ESCAPE:
                 if not paused:
                     running = False
@@ -245,9 +263,9 @@ while not done:
         #call game class and do game things and update game variables and stuff
 
         #determines if the player is firing and limits then to a predefined firing rate (framerate/counter modulus)
-        if (spawn_proj):
-            if (not (frame_counter%8)):
-                player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
+        # if (spawn_proj):
+            # if (not (frame_counter%8)):
+                # player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
         #updates player loc                
         player.update()
@@ -277,6 +295,10 @@ while not done:
         player_proj_holder.draw(screen)
         player.draw(screen)
         enemy_proj_holder.draw(screen)
+        
+        # fire weapon if space bar is held down
+        if spawn_proj:
+            player.update_proj()
         # adds hud
         hud()
     
