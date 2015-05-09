@@ -80,7 +80,7 @@ class Projectile:
 		setSpeed(Int) 			 :: Void
 		setAngle(Double) 		 :: Void       # 0 -> completely right, pi/2 -> completely down, pi -> completely left
 		getDamage()              :: Int
-		movementPattern(Int,Int) :: (Int,Int)  # function that will get location of projectile for next frame, uses speed and angle in calculation
+		movementPattern(Int,Int) :: (Double,Double)  # function that will get location of projectile for next frame, uses speed and angle in calculation
 		                                       # basically returns (cos(angle) * speed, sin(angle) * speed)
 											   # possibly have to convert from double to int, 
 
@@ -89,16 +89,18 @@ class Projectile:
 # 	Abstract weapon class
 #	A means of keeping track of the projectiles a unit shoots out, including optimization	
 class Weapon
-	# inputs: (x, y, ProjType)
+	# inputs: (x, y, ProjType, movementPattern)
 	initializations:
 		setx()
 		sety()
 		setProjType()
 		updateProj()
+		setMovementPattern()
 	attributes:
-		proj :: [Projectile] # array of projectiles being fired from this weapon
-		xloc :: Int
-		yloc :: Int
+		proj            :: [Projectile]  # array of projectiles being fired from this weapon
+		xloc            :: Int
+		yloc            :: Int
+		movementPattern :: Int -> Double # given number (counter), returns angle, or None
 		
 	methods:
 		getx() 					 :: Int

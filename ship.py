@@ -1,11 +1,14 @@
 class ship_object (object):
-        def __init__(self,art,context_size,weapon=0):
-            self.weapon = weapon
-            self.art = art
-            self.hp = 100
+#     def __init__(self,coord,projType,movementPattern,context,context_size):
+
+        def __init__(self,art,context_size,context,weapon):
+            self.weapon       = weapon # TODO: add proper initialization parameters
+            self.art          = art
+            self.hp           = 100
             self.context_size = context_size
-            self.pos = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
-            self.vel = [0,0]
+            self.context      = context
+            self.pos          = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
+            self.vel          = [0,0]
 
         def set_x_vel(self,vel):
             self.vel[0]=vel
@@ -21,15 +24,17 @@ class ship_object (object):
 
         def set_pos(self,pos):#pos must be a list [x_pos, y_pos]
             self.pos = pos
+            self.weapon.set_pos(pos)
 
         def set_weapon(weapon):
-                self.weapon = weapon
+            self.weapon = weapon
 
         def get_weapon(self):
-                return self.weapon
+            return self.weapon
 
         def set_x_pos(self,x_pos):
             self.pos[0] = x_pos
+            self.weapon.set_x_pos
 
         def set_y_pos(self,y_pos):
             self.pos[1] = y_pos
@@ -47,11 +52,17 @@ class ship_object (object):
             context.blit(self.art, self.pos)
          
         def get_hp(self):
-                return self.hp
+            return self.hp
 
         def set_hp(self,hp):
-                self.hp = hp
+            self.hp = hp
 
         def set_art(art):
-                self.art = art
+            self.art = art
+                
+        def update_proj(self):
+            xstr = str(self.pos[0])
+            ystr = str(self.pos[1])
+            print(xstr + "," + ystr)
+            self.weapon.updateProj(self.pos[0], self.pos[1])
 
