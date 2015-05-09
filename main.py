@@ -4,7 +4,7 @@ import math
 import player
 import menu
 import background
-import projectile
+import projectile_temp
 import threading
 
 # initializing pygame
@@ -64,8 +64,8 @@ print("Art loaded!")
 # object initialization
 player             = player.player_object(player_ship,size)
 starfield          = background.starfield_object(size)
-enemy_proj_holder  = projectile.projectile_holder_object(e_proj_art_arr,size)
-player_proj_holder = projectile.projectile_holder_object(p_proj_art_arr,size)
+enemy_proj_holder  = projectile_temp.projectile_holder_object(e_proj_art_arr,size)
+player_proj_holder = projectile_temp.projectile_holder_object(p_proj_art_arr,size)
 
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
@@ -106,9 +106,9 @@ def pause_menu():
 
         
     # menu structure code        
-    pygame.draw.rect(screen, RED, [menu_pos[0][0],menu_pos[0][1],menu_pos[0][2],menu_pos[0][3]])
-    pygame.draw.rect(screen, RED, [menu_pos[1][0],menu_pos[1][1],menu_pos[1][2],menu_pos[1][3]])
-    pygame.draw.rect(screen, RED, [menu_pos[2][0],menu_pos[2][1],menu_pos[2][2],menu_pos[2][3]])
+    pygame.draw.rect(screen, RED, menu_pos[0])
+    pygame.draw.rect(screen, RED, menu_pos[1])
+    pygame.draw.rect(screen, RED, menu_pos[2])
 
     #render strings to text
     title_text   = title_font.render("PySho!",True,WHITE)
@@ -135,9 +135,9 @@ def main_menu():
 
         
     # menu structure code        
-    pygame.draw.rect(screen, RED, [menu_pos[0][0],menu_pos[0][1],menu_pos[0][2],menu_pos[0][3]])
-    pygame.draw.rect(screen, RED, [menu_pos[1][0],menu_pos[1][1],menu_pos[1][2],menu_pos[1][3]])
-    pygame.draw.rect(screen, RED, [menu_pos[2][0],menu_pos[2][1],menu_pos[2][2],menu_pos[2][3]])
+    pygame.draw.rect(screen, RED, menu_pos[0])
+    pygame.draw.rect(screen, RED, menu_pos[1])
+    pygame.draw.rect(screen, RED, menu_pos[2])
 
     #render strings to text
     title_text   = title_font.render("PySho!",True,WHITE)
@@ -225,7 +225,7 @@ while not done:
                             paused = False
                             pygame.mixer.music.unpause()
                         else:
-                            pygame.mixer.music.fadeout(500)
+                            pygame.mixer.music.stop()
                             pygame.mixer.music.load("Assets/Music/gmPly.mp3")
                             pygame.mixer.music.play(-1)
                         running=True;
@@ -243,7 +243,6 @@ while not done:
         #Ex, starfield update thread, projectile thread, enemy ai thread,...
         starfield_t=threading.Thread(target=starfield.update)
         starfield_t.start()
-        #starfield.update()
 
     if not running:
         pass
@@ -252,8 +251,7 @@ while not done:
         #call game class and do game things and update game variables and stuff
 
         #determines if the player is firing and limits then to a predefined firing rate (framerate/counter modulus)
-        if (spawn_proj):
-            if (not (frame_counter%8)):
+        if (spawn_proj and not (frame_counter%8)):
                 player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
         #updates player loc
