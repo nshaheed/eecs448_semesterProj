@@ -42,7 +42,7 @@ class menu_object (object):
             pygame.draw.rect(context, RED, [self.menu_pos[0][0],self.menu_pos[0][1],self.menu_pos[0][2],self.menu_pos[0][3]])
             pygame.draw.rect(context, RED, [self.menu_pos[1][0],self.menu_pos[1][1],self.menu_pos[1][2],self.menu_pos[1][3]])
             pygame.draw.rect(context, RED, [self.menu_pos[2][0],self.menu_pos[2][1],self.menu_pos[2][2],self.menu_pos[2][3]])
-			
+            
 # move this to separate file eventually
 def pause_menu():
     #call menu class and do menu things
@@ -72,7 +72,7 @@ def pause_menu():
     screen.blit(start_text_2, [186, 505])
     screen.blit(exit_text_1, [262, 595])
     screen.blit(exit_text_2, [203, 640])
-	
+    
 # def main.menu
 
             

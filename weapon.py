@@ -15,13 +15,21 @@ class weapon(object):
         
 #    def __init__(self, xval, yval, spd, ang, damg, filepath):
     def newProj(self):
-        xval     = self.projType.getx()
-        yval     = self.projType.gety()
+        # print("newProj ------------")
+        xval     = self.pos[0]
+        # print(xval)
+        yval     = self.pos[1]
+        # print(yval)
         spd      = self.projType.getSpeed()
+        # print(spd)
         ang      = self.projType.getAngle()
+        # print(ang)
         dmg      = self.projType.getDamage()
+        # print(dmg)
         filepath = self.projType.getFilepath()
+        # print(filepath)
         projNew  = projectile2.Projectile(xval,yval,spd,ang,dmg,filepath)
+        # print("----------------------")
         return projNew
         
     def get_pos(self):
@@ -60,22 +68,30 @@ class weapon(object):
     # updateProj(Int,Int)      :: Void 
     
     def updateProj(self,x,y):
+    
+        xstr = str(x)
+        ystr = str(y)
+        # print("upd coord: " + xstr + "," + ystr)
+        
         self.pos  = (x,y)
+        # print("pos:       " + str(self.pos))
         angle     = self.movementPattern(self.counter)
+        # print("angle:     " + str(angle))    
         removeIdx = []
         
         if angle != None: # movementPattern returned a valid number, this means that it is time to generate a new projectile
-            print(len(self.proj))
+            # print(len(self.proj))
             newProjectile = self.newProj()
             newProjectile.setAngle(angle)
             self.proj.append(newProjectile)
-            print(len(self.proj))
-            print("")
+            # print(len(self.proj))
+            # print("")
             
         # run through all the projectiles, updating them on the screen.  If the projectiles are off the screen, 
         #   remove them from the list
         # note: use store a list of indexes to remove, use del on all those vals
         for i in range(0, len(self.proj) - 1):
+            # print("pos" + str(i) + "      (" + str(self.proj[i].getx()) + "," + str(self.proj[i].gety()) + ")")
             self.proj[i].draw(self.context) # draw to screen
             self.proj[i].setNextLocation()
             
