@@ -270,8 +270,8 @@ while not done:
 
         #determines if the player is firing and limits then to a predefined firing rate (framerate/counter modulus)
 
-        if (spawn_proj and not (frame_counter%8)):
-                player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
+        # if (spawn_proj and not (frame_counter%8)):
+                # player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
         #updates player loc
         player.update()
@@ -304,8 +304,8 @@ while not done:
         enemy_proj_holder.draw(screen)
         
         # fire weapon if space bar is held down
-        # if spawn_proj:
-            # player.update_proj()
+        if spawn_proj:
+            player.update_proj()
         # adds hud
         hud()
     

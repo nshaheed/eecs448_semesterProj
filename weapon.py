@@ -48,17 +48,17 @@ class weapon(object):
     def set_projType(self, projType):
         self.projType = projType
         
-		# first updateProj updates the weapons x,y location,
-		#	then it checks if it is time to add another projectile,
-		#		if so, it appends it to the proj array
-		#	then it cycles through all the projectiles, calls setNextLocation,
-		#		and then if the projectile is off screen, removes it,
-        #       else, it draw it.
-		#	for enemies, the projectile will have a positive speed, and for
-		#		the player will have a negative speed (assuming (0,0) is the 
-		#		top left corner
-		# updateProj(Int,Int)      :: Void 
-        
+    # first updateProj updates the weapons x,y location,
+    #    then it checks if it is time to add another projectile,
+    #    if so, it appends it to the proj array
+    #    then it cycles through all the projectiles, calls setNextLocation,
+    #    and then if the projectile is off screen, removes it,
+    #       else, it draw it.
+    #    for enemies, the projectile will have a positive speed, and for
+    #    the player will have a negative speed (assuming (0,0) is the 
+    #    top left corner
+    # updateProj(Int,Int)      :: Void 
+    
     def updateProj(self,x,y):
         self.pos  = (x,y)
         angle     = self.movementPattern(self.counter)
