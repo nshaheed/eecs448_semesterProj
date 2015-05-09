@@ -74,7 +74,7 @@ def mvmtPtrn1(x):
     else:
         return None
         
-proj1    = projectile2.Projectile(0, 0, 1, 1.5 * math.pi, 10, "Assets/Art/projectile.png")
+proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, "Assets/Art/projectile.png")
 weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 
 # object initialization
@@ -139,7 +139,7 @@ def pause_menu():
     screen.blit(start_text_2, [186, 505])
     screen.blit(exit_text_1,  [262, 595])
     screen.blit(exit_text_2,  [203, 640])
-	
+    
 def main_menu():
     #call menu class and do menu things
 
@@ -168,21 +168,21 @@ def main_menu():
     screen.blit(start_text_2, [186, 505])
     screen.blit(exit_text_1,  [262, 595])
     screen.blit(exit_text_2,  [203, 640])
-	
+    
 # layers the hud on top of the game
 def hud():
-	# health and points values
-	health = player.get_hp()
-	points = 0
-	
-	# render strings to text
-	health_text = hud_font.render("Health: " + str(health), True, WHITE)
-	points_text = hud_font.render("Points: " + str(points), True, WHITE)
-	
-	# put the image of the text on the screen in the bottom left corner (
-	screen.blit(health_text, [15, 730])
-	screen.blit(points_text, [15, 765])
-	
+    # health and points values
+    health = player.get_hp()
+    points = 0
+    
+    # render strings to text
+    health_text = hud_font.render("Health: " + str(health), True, WHITE)
+    points_text = hud_font.render("Points: " + str(points), True, WHITE)
+    
+    # put the image of the text on the screen in the bottom left corner (
+    screen.blit(health_text, [15, 730])
+    screen.blit(points_text, [15, 765])
+    
 while not done:
     # Main event loop
     
@@ -273,9 +273,10 @@ while not done:
         # if (spawn_proj and not (frame_counter%8)):
                 # player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
+        # update coords for player projectile
         #updates player loc
         player.update()
-		
+        
         #updates the various projectile holders
         player_proj_holder.update()
         enemy_proj_holder.update()
@@ -298,14 +299,16 @@ while not done:
             pause_menu()
 
     else:
+        # fire weapon if space bar is held down
+        # if spawn_proj:
+            # player.update_proj()
+        player.update_proj()
         #call game class and do game things and update game variables and stuff
         player_proj_holder.draw(screen)
         player.draw(screen)
         enemy_proj_holder.draw(screen)
         
-        # fire weapon if space bar is held down
-        if spawn_proj:
-            player.update_proj()
+
         # adds hud
         hud()
     

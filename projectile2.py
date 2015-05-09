@@ -58,9 +58,9 @@ class Projectile (object):
     def draw(self, context):
         xstr = str(self.x)
         ystr = str(self.y)
-        print(xstr + "," + ystr)
-        #context.blit(self.sprite, [int(math.floor(self.x)), int(math.floor(self.y))])
-        context.blit(self.sprite, [80, 80])
+        # print(xstr + "," + ystr)
+        context.blit(self.sprite, [int(math.floor(self.x)), int(math.floor(self.y))])
+        #context.blit(self.sprite, [80, 80])
         
     # takes an x and y value and returns the updated coordinates based on on speed and angle
     def movementPattern(self, x, y):
