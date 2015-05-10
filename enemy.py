@@ -24,6 +24,10 @@ class enemy_object (ship.ship_object):
                 y = self.pos[1] + distRatio * (self.patternStartPos[1] - self.pos[1])
                 self.pos = [x,y]
 
+    # re-align since the ship is drawn from top-left instead of center
+    def draw(self, context):
+        context.blit(self.art, [self.pos[0] - self.art.get_width()/2, self.pos[1]])
+
 
 def euclideanDist(v1, v2):
     #print("eudlidean distance: ", v1, v2)

@@ -10,3 +10,7 @@ class player_object (ship.ship_object):
                 self.pos[1] = self.pos[1]+self.vel[1]
                 
             self.weapon.set_pos(self.pos)
+
+        # redefinition to avoid centering correction - everything player-related is lined up without it
+        def draw(self, context):
+            context.blit(self.art, self.pos)
