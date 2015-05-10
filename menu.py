@@ -28,9 +28,14 @@ class menu_object (object):
             self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
             self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             print("Menu Initialized!")
+            
         def set_hp(self,hp):
+            self.health = health
             self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
-            self.hp = hp
+
+        def dec_hp(self,dec=1):
+            self.health = self.health-dec
+            self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
 
         def set_points(self,points):
             self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
