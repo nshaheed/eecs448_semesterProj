@@ -50,6 +50,9 @@ class ship_object (object):
 
         def draw(self, context):
             context.blit(self.art, self.pos)
+            
+        def draw_proj(self):
+            self.weapon.draw()
          
         def get_hp(self):
             return self.hp
@@ -60,9 +63,9 @@ class ship_object (object):
         def set_art(art):
             self.art = art
                 
-        def update_proj(self):
-            xstr = str(self.pos[0])
-            ystr = str(self.pos[1])
-            print(xstr + "," + ystr)
-            self.weapon.updateProj(self.pos[0], self.pos[1])
+        def update_proj(self,genNew):
+            # xstr = str(self.pos[0])
+            # ystr = str(self.pos[1])
+            # print(xstr + "," + ystr)
+            self.weapon.updateProj(self.pos[0], self.pos[1], genNew)
 
