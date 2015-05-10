@@ -84,11 +84,7 @@ weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 # object initialization
 player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
-enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,size,screen)
-
-#remove these two
-enemy_proj_holder  = projectile_temp.projectile_holder_object(e_proj_art_arr,size)
-player_proj_holder = projectile_temp.projectile_holder_object(p_proj_art_arr,size)
+enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,e_proj_art_arr,size,screen)
 
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
