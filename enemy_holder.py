@@ -59,20 +59,17 @@ class enemy_holder(object):
                     
     def update_proj_coll(self,player_pos,player_size=(32,32)):
         for i in range(len(self.enemy_arr)):
-            proj = self.enemy_arr[i].get_proj_pos()
-            print(proj)
-            proj_size = self.enemy_arr[i].get_proj_art_size()
-#=======
-                    self.enemy_arr[i].set_alive(False)
-            
-#>>>>>>> origin/master
+            proj = self.enemy_arr[i].weapon.get_proj_pos()
+            #print(proj)
+            proj_size = self.enemy_arr[i].weapon.get_proj_art_size()
 
-            x_bool = math.abs(player_pos[0] - (proj[0] + proj_size[0])) < (player_size[0] + proj_size[0])
-            y_bool = math.abs(player_pos[1] - (proj[1] + proj_size[1])) < (player_size[1] + proj_size[1])
+            for j in range(len(proj)):
+                x_bool = math.fabs(player_pos[0] - (proj[j][0] + proj_size[0])) < (player_size[0] + proj_size[0])
+                y_bool = math.fabs(player_pos[1] - (proj[j][1] + proj_size[1])) < (player_size[1] + proj_size[1])
                 
             # if there is a collision, kill the ship
-            if x_bool and y_bool:
-                return True
+                if x_bool and y_bool:
+                    return True
         return False
     
     def draw(self):
