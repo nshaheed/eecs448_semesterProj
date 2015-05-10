@@ -69,13 +69,13 @@ class weapon(object):
             self.proj[i].setNextLocation()
                 
             # finds index of projectiles that are off screen and need to be removed
-            if self.proj[i].getx() < -64 or self.proj[i].getx() >= self.context_size[0] + 64:
+            if self.proj[i].getx() < -32 or self.proj[i].getx() >= self.context_size[0] + 32:
                 removeIdx.append(i)
-            if self.proj[i].gety() < -64 or self.proj[i].gety() >= self.context_size[0] + 64:
+            elif self.proj[i].gety() < -32 or self.proj[i].gety() >= self.context_size[1] + 32:
                 removeIdx.append(i)
                 
         # removes projectiles that are off screen 
-        for j in range(len(removeIdx)):
+        for j in range(len(removeIdx)-1,-1,-1):
             del self.proj[removeIdx[j]]
             
         self.counter = self.counter + 1
