@@ -17,7 +17,7 @@ class enemy_holder(object):
         [self.enemy_arr[i].update() for i in range(0,len(self.enemy_arr))]
 
     def add_enemy(self,art,ai_func,weapon,weapon_ptrn):
-        self.enemy_arr.append(enemy.enemy_object(self.art_arr[0],self.context_size,self.context,ai_func(),weapon,weapon_ptrn,self.proj1))
+        self.enemy_arr.append(enemy.enemy_object(self.art_arr[0],self.context_size,self.context,ai_func(),weapon,self.proj1,weapon_ptrn))
 
     def kill_enemy(i):
         self.enemy_arr.pop(i)
