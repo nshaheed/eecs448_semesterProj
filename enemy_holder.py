@@ -31,6 +31,24 @@ class enemy_holder(object):
         if not self.time:
             self.add_random_enemy()
             #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
+            
+    # detects collisions between enemy ships and player projectiles
+    def update_coll(self, proj, proj_size):
+        # Go through all enemy ships
+        for i in range(len(self.enemy_arr)):
+            ship_pos  = self.enemy_arr[i].get_pos()
+            ship_size = self.enemy_arr[i].get_art_size()
+            
+            # check if projectiles overlap with the current ship
+            for j in range(len[proj]):
+                # find if the boxes are intersecting
+                x_bool = math.abs(ship_pos[0] - (proj[0] + proj_size[0])) < (ship_size[0] + proj_size[0])
+                y_bool = math.abs(ship_pos[1] - (proj[1] + proj_size[1])) < (ship_size[1] + proj_size[1])
+                
+                # if there is a collision, kill the ship
+                if x_bool and y_bool:
+                    self.enemy_arr[i].set_alive(alive)
+            
 
     def draw(self):
         [self.enemy_arr[i].draw(self.context) for i in range(len(self.enemy_arr))]
@@ -56,7 +74,18 @@ class enemy_holder(object):
             self.enemy_arr[i].draw_proj()
 
     def update_proj(self):
-        [self.enemy_arr[i].update_proj(True) for i in range(len(self.enemy_arr))]
+        removeIdx = []
+        for i in range(len(self.enemy_arr)):
+            self.enemy_arr[i].update_proj(True)
+            if not self.enemy_arr[i].get_alive():
+                if len(self.enemy_arr[i].get_weapon().get_proj()) == 0:
+                    delIdx.append(i)
+                    
+        # removes enemies that are totally dead 
+        for j in range(len(removeIdx)-1,-1,-1):
+            del self.enemy_arr[removeIdx[j]]
+            
+        # [self.enemy_arr[i].update_proj(True) for i in range(len(self.enemy_arr))]
 
        # threads = []
        # for i in range(len(self.enemy_arr)):

@@ -23,6 +23,9 @@ class Projectile (object):
         
     def gety(self):
         return self.y
+        
+    def getpos(self):
+        return (self.x,self.y)
 
     def getSprite(self):
         return self.sprite
@@ -44,6 +47,9 @@ class Projectile (object):
         
     def setSprite(self, art):
         self.sprite = art
+        
+    def getSpriteSize(self):
+        return self.sprite.get_size()
         
     def setSpeed(self, spd):
         self.speed = spd

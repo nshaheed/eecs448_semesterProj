@@ -36,6 +36,12 @@ class weapon(object):
     def get_proj(self):
         return self.proj
         
+    def get_proj_pos(self):
+        return [x.getpos() for x in self.proj]
+        
+    def get_proj_art_size(self):
+        return self.projType.getSpriteSize()
+        
     def set_pos(self,pos): #pos must be a list [x_pos, y_pos]
         self.pos = pos
 

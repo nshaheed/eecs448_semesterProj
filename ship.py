@@ -9,6 +9,7 @@ class ship_object (object):
             self.context      = context
             self.pos          = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
             self.vel          = [0,0]
+            self.alive        = True
             
         def reset():
             self.hp  = 100
@@ -52,10 +53,18 @@ class ship_object (object):
 
         def get_y_pos(self):
             return self.pos[1]
+            
+        def get_alive(self):
+            return self.alive
+            
+        def get_art_size(self):
+            return self.art.get_size()
 
         def draw(self, context):
             #print("I'm drawing the enemy!!!!!")
-            context.blit(self.art, self.pos)
+            # only draw ship if it's alive
+            if self.alive:
+                context.blit(self.art, self.pos)
             
         def draw_proj(self):
             self.weapon.draw()
@@ -66,8 +75,11 @@ class ship_object (object):
         def set_hp(self,hp):
             self.hp = hp
 
-        def set_art(art):
+        def set_art(self,art):
             self.art = art
+            
+        def set_alive(self,alive):
+            self.alive = alive
                 
         def update_proj(self,genNew):
             self.weapon.updateProj(self.pos[0], self.pos[1], genNew)

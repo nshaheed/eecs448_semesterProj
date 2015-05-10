@@ -240,10 +240,14 @@ while not done:
 
     else:
         # fire weapon if space bar is held down
+        # put colision detection here
         player_t.join()
         proj_t.join()
         enemy_proj_t.join()
         enemy_t.join()
+        
+        enemy_hldr.update_coll(player.get_weapon().get_proj_pos(),player.get_weapon().get_proj_art_size())
+
         enemy_hldr.draw()
         enemy_hldr.draw_proj()
         player.draw_proj()
