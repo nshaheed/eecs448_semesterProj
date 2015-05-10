@@ -42,12 +42,19 @@ class enemy_holder(object):
             # check if projectiles overlap with the current ship
             for j in range(len(proj)):
                 # find if the boxes are intersecting
-                x_bool = math.abs(ship_pos[0] - (proj[0] + proj_size[0])) < (ship_size[0] + proj_size[0])
-                y_bool = math.abs(ship_pos[1] - (proj[1] + proj_size[1])) < (ship_size[1] + proj_size[1])
+                x_bool = math.fabs(ship_pos[0] - (proj[j][0] + proj_size[0])) < (ship_size[0] + proj_size[0])
+                # print("ship_pos")
+                # print(ship_pos[1])
+                # print("proj[j][1]")
+                # print(proj[j][1])
+                # print("proj_size")
+                # print(proj_size[1])
+                # print("------")
+                y_bool = math.fabs(ship_pos[1] - (proj[j][1] + proj_size[1])) < (ship_size[1] + proj_size[1])
                 
                 # if there is a collision, kill the ship
                 if x_bool and y_bool:
-                    self.enemy_arr[i].set_alive(alive)
+                    self.enemy_arr[i].set_alive(False)
             
 
     def draw(self):
@@ -79,7 +86,7 @@ class enemy_holder(object):
             self.enemy_arr[i].update_proj(True)
             if not self.enemy_arr[i].get_alive():
                 if len(self.enemy_arr[i].get_weapon().get_proj()) == 0:
-                    delIdx.append(i)
+                    removeIdx.append(i)
                     
         # removes enemies that are totally dead 
         for j in range(len(removeIdx)-1,-1,-1):
