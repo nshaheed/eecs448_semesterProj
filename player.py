@@ -9,5 +9,4 @@ class player_object (ship.ship_object):
             if self.pos[1]+self.vel[1]>=0 and self.pos[1]+self.vel[1]+32<=self.context_size[1]:
                 self.pos[1] = self.pos[1]+self.vel[1]
                 
-            print("ship position: " + str(self.pos))
             self.weapon.set_pos(self.pos)

@@ -64,8 +64,5 @@ class ship_object (object):
             self.art = art
                 
         def update_proj(self,genNew):
-            # xstr = str(self.pos[0])
-            # ystr = str(self.pos[1])
-            # print(xstr + "," + ystr)
             self.weapon.updateProj(self.pos[0], self.pos[1], genNew)
 
