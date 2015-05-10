@@ -7,7 +7,7 @@ import random, math
 
 class ai:
     def __init__(self):
-        pass
+        self.flyInSpeed = 10
 
     # ship will fly in from this point to StartPos
     def getOffscreenOrigin(self, context_size):
