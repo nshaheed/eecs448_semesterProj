@@ -1,7 +1,8 @@
 
 # ai.py
 # 
-# 
+# controls movement of enemies
+
 import random, math
 
 class ai:
@@ -31,3 +32,8 @@ class circling_ai(ai):
         r = self.radius
         self.angle += self.speed
         return [self.center[0] + r * math.cos(self.angle), self.center[1] + r * math.sin(self.angle)]
+
+
+
+# a list of ai constructors along with parameters - when generating a new enemy, choose randomly from among these 
+aiList = [(ai,[]),(circling_ai,[]),(circling_ai,[50,-.1])]
