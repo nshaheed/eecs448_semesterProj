@@ -43,17 +43,11 @@ class enemy_holder(object):
             for j in range(len(proj)):
                 # find if the boxes are intersecting
                 x_bool = math.fabs(ship_pos[0] - (proj[j][0] + proj_size[0])) < (ship_size[0] + proj_size[0])
-                # print("ship_pos")
-                # print(ship_pos[1])
-                # print("proj[j][1]")
-                # print(proj[j][1])
-                # print("proj_size")
-                # print(proj_size[1])
-                # print("------")
                 y_bool = math.fabs(ship_pos[1] - (proj[j][1] + proj_size[1])) < (ship_size[1] + proj_size[1])
                 
                 # if there is a collision, kill the ship
                 if x_bool and y_bool:
+                    print("coll" + str(i))
                     self.enemy_arr[i].set_alive(False)
             
 
@@ -68,10 +62,6 @@ class enemy_holder(object):
         (ai_func, args) = random.choice(ai.aiList)
         ai_object = ai_func(*args)
         self.add_enemy(random.choice(self.ship_art_arr), ai_object, weapon.weapon, random.choice(self.move_ptrn_arr))
-#=======
-#    def add_enemy(self,art,ai_func,weapon,weapon_ptrn):
-#        self.enemy_arr.append(enemy.enemy_object(self.ship_art_arr[random.randint(0,2)],self.context_size,self.context,ai_func(),weapon,self.proj1,weapon_ptrn))
-#>>>>>>> 6ed0d6e78b57e80bf8639a16da639d31a57fcb81
 
     def kill_enemy(self,i):
         self.enemy_arr.pop(i)
