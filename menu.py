@@ -29,9 +29,11 @@ class menu_object (object):
             self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             print("Menu Initialized!")
         def set_hp(self,hp):
+            self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
             self.hp = hp
 
         def set_points(self,points):
+            self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             self.points = points
             
         def clicked(self,mouse_pos):
@@ -82,8 +84,6 @@ class menu_object (object):
             self.context.blit(self.menu_return_text_2, [203, 640])
 
         def draw_hud(self):
-            self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
-            self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             self.context.blit(self.health_text, [15, 730])
             self.context.blit(self.points_text, [15, 765])    
 
