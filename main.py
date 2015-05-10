@@ -274,10 +274,13 @@ while not done:
                 # player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
         #updates player loc
-        player.update()
+        player_t=threading.Thread(target=player.update)
+        player_t.start()
+        #player.update()
         
         # update coords for player projectile, have spawn_proj be pass to update_proj
-        player.update_proj(spawn_proj)
+        proj_t=threading.Thread(target=player.update_proj,args =(spawn_proj,))
+        proj_t.start()
         
         #updates the various projectile holders
         # player_proj_holder.update()
@@ -298,6 +301,8 @@ while not done:
         if not paused:
             main_menu()
         else:
+            player_t.join()
+            proj_t.join()
             pause_menu()
 
     else:
