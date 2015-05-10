@@ -26,5 +26,5 @@ class enemy_object (ship.ship_object):
 
 
 def euclideanDist(v1, v2):
-    print("eudlidean distance: ", v1, v2)
+    #print("eudlidean distance: ", v1, v2)
     return math.sqrt(sum([(v1[i] - v2[i]) ** 2 for i in range(len(v1))]))
