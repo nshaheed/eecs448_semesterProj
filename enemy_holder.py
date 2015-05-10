@@ -41,19 +41,21 @@ class enemy_holder(object):
             self.enemy_arr[i].draw_proj()
 
     def update_proj(self):
-        threads = []
-        for i in range(len(self.enemy_arr)):
-            t=threading.Thread(target=self.enemy_arr[i].update_proj,args =(True,))
-            threads.append(t)
-        for t in threads:
-            t.start()
+        [self.enemy_arr[i].update_proj(True) for i in range(len(self.enemy_arr))]
 
-        for x in threads:
-            x.join()
+       # threads = []
+       # for i in range(len(self.enemy_arr)):
+       #     t=threading.Thread(target=self.enemy_arr[i].update_proj,args =(True,))
+       #     threads.append(t)
+       # for t in threads:
+       #     t.start()
+
+       # for x in threads:
+       #     x.join()
 
 
     def mvmtPtrn1(self,x):
-        if x % 8 == 0: # fire proj
+        if x % 32 == 0: # fire proj
             return (.5 * math.pi)
         else:
             return None    
