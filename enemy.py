@@ -7,6 +7,7 @@ class enemy_object (ship.ship_object):
         self.pos = self.ai.getStartPos(context_size)
 
     def update(self):
+        ship.ship_object.update(self)
         self.pos = self.ai.getNextPos(self.pos)
         
                 
