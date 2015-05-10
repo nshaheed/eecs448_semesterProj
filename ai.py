@@ -36,6 +36,7 @@ class sin_ai(ai):
     # moves left to right in a sine pattern.
     def __init__(self, amplitude = 50, speed = 0.1):
         self.amplitude = amplitude
+        self.speed     = speed
         
 
 

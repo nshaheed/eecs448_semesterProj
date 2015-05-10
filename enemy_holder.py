@@ -9,16 +9,16 @@ import projectile2
 
 class enemy_holder(object):
     def __init__(self,ship_art,proj_art,context_size,context):
-        self.time = 0
-        self.context_size = context_size
-        self.context = context
-        #weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
-        self.enemy_arr = []
-        self.ship_art_arr = ship_art
-        self.proj_art_arr = proj_art
+        self.time          = 0
+        self.context_size  = context_size
+        self.context       = context
+        #weap1             = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
+        self.enemy_arr     = []
+        self.ship_art_arr  = ship_art
+        self.proj_art_arr  = proj_art
         self.move_ptrn_arr = []
-        self.ai_func_arr = []
-        self.proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, proj_art[0])
+        self.ai_func_arr   = []
+        self.proj1         = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, proj_art[0])
         self.move_ptrn_arr.append(self.mvmtPtrn1)
         self.ai_func_arr.append(ai.circling_ai)
         #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
