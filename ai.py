@@ -9,6 +9,10 @@ class ai:
     def __init__(self):
         pass
 
+    # ship will fly in from this point to StartPos
+    def getOffscreenOrigin(self, context_size):
+        return [random.randint(0,context_size[0]), -50]
+
     def getStartPos(self, context_size):
         return [random.randint(0,context_size[0]),random.randint(0,context_size[1]/2)]
 
@@ -52,4 +56,4 @@ class sin_ai(ai):
 
 
 # a list of ai constructors along with parameters - when generating a new enemy, choose randomly from among these 
-aiList = [(ai,[]),(circling_ai,[]),(circling_ai,[50,-.1])]
+aiList = [(ai,[]),(circling_ai,[]),(circling_ai,[50,-.1]),(sin_ai,[])]
