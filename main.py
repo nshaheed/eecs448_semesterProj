@@ -24,9 +24,6 @@ BLUE     = (   0,   0, 255)
 #defins max ups
 GAME_UPS = 60
 
-#defines UPS divider
-#draw_time = int(GAME_UPS/30)
-
 #player move speed
 PLAYER_VEL = 10
 
@@ -55,10 +52,18 @@ player_ship    = pygame.image.load("Assets/Art/player_ship.png")#.convert()
 enemy_ship     = pygame.image.load("Assets/Art/enemy_ship.png")#.convert()
 kamina_ship    = pygame.image.load("Assets/Art/kamina_ship.png")#.convert()
 boss_ship      = pygame.image.load("Assets/Art/enemy_ship_mb0.png")#.convert()
+
+#enemy ship arrays
 enemy_ship_arr = []
 enemy_ship_arr.append(enemy_ship)
 enemy_ship_arr.append(kamina_ship)
 enemy_ship_arr.append(boss_ship)
+
+menu_art = []
+menu_art.append(boss_ship)
+menu_art.append(enemy_ship)
+menu_art.append(kamina_ship)
+menu_art.append(player_ship)
 # shields
 shield         = pygame.image.load("Assets/Art/shield_dmg_0.png")#.convert()
 shield_dmg     = pygame.image.load("Assets/Art/shield_dmg_1.png")#.convert()
@@ -82,14 +87,10 @@ proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, p_proj_art_arr[0]
 weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 
 # object initialization
+menu               = menu.menu_object(menu_art,size,screen)
 player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
 enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,e_proj_art_arr,size,screen)
-
-# Select the font to use, size, (bold, italics)
-title_font = pygame.font.SysFont('Calibri', 140, True, False)
-menu_font  = pygame.font.SysFont('Calibri', 50,  True, False)
-hud_font   = pygame.font.SysFont('Calibri', 25,  True, False)
 
 #tracks frames for timers
 frame_counter = 0
@@ -113,108 +114,6 @@ clock = pygame.time.Clock()
 menu_pos = [(90,120,420,200),(175,460,250,100),(175,590,250,100)]
 pygame.mixer.music.play(-1)
 
-# move this to separate file eventually
-def pause_menu():
-    #call menu class and do menu things
-
-    #menu ship preview
-    screen.blit(player_ship, player.get_pos())
-    screen.blit(enemy_ship,  ((size[0]/2)-121, 60))
-    screen.blit(enemy_ship,  ((size[0]/2)+89, 60))
-    screen.blit(boss_ship,   ((size[0]/2)-75, 20))
-
-        
-    # menu structure code        
-    pygame.draw.rect(screen, RED, menu_pos[0])
-    pygame.draw.rect(screen, RED, menu_pos[1])
-    pygame.draw.rect(screen, RED, menu_pos[2])
-
-    #render strings to text
-    title_text   = title_font.render("PySho!",True,WHITE)
-    start_text_1 = menu_font.render("Resume",True,WHITE)
-    start_text_2 = menu_font.render("conquering",True,WHITE)
-    exit_text_1  = menu_font.render("Go to",True,WHITE)
-    exit_text_2  = menu_font.render("menu...",True,WHITE)
-        
-    # Put the image of the text on the screen at 250x250
-    screen.blit(title_text,   [98, 155])
-    screen.blit(start_text_1, [211, 460])
-    screen.blit(start_text_2, [186, 505])
-    screen.blit(exit_text_1,  [262, 595])
-    screen.blit(exit_text_2,  [203, 640])
-    
-def gameover_menu():
-    #call menu class and do menu things
-
-    #menu ship preview
-    screen.blit(player_ship, player.get_pos())
-    screen.blit(enemy_ship,  ((size[0]/2)-121, 60))
-    screen.blit(enemy_ship,  ((size[0]/2)+89, 60))
-    screen.blit(boss_ship,   ((size[0]/2)-75, 20))
-
-        
-    # menu structure code        
-    pygame.draw.rect(screen, RED, menu_pos[0])
-    pygame.draw.rect(screen, RED, menu_pos[1])
-    pygame.draw.rect(screen, RED, menu_pos[2])
-
-    #render strings to text
-    title_text   = title_font.render("PySho!",True,WHITE)
-    start_text_1 = menu_font.render("Restart",True,WHITE)
-    start_text_2 = menu_font.render("the game",True,WHITE)
-    exit_text_1  = menu_font.render("Go to",True,WHITE)
-    exit_text_2  = menu_font.render("menu...",True,WHITE)
-        
-    # Put the image of the text on the screen at 250x250
-    screen.blit(title_text,   [98, 155])
-    screen.blit(start_text_1, [211, 460])
-    screen.blit(start_text_2, [186, 505])
-    screen.blit(exit_text_1,  [262, 595])
-    screen.blit(exit_text_2,  [203, 640])
-    
-def main_menu():
-    #call menu class and do menu things
-
-    #menu ship preview
-    screen.blit(player_ship, ((size[0]/2)-16, (size[1]/2)-16))
-    screen.blit(enemy_ship,  ((size[0]/2)-121, 60))
-    screen.blit(enemy_ship,  ((size[0]/2)+89, 60))
-    screen.blit(boss_ship,   ((size[0]/2)-75, 20))
-
-        
-    # menu structure code        
-    pygame.draw.rect(screen, RED, menu_pos[0])
-    pygame.draw.rect(screen, RED, menu_pos[1])
-    pygame.draw.rect(screen, RED, menu_pos[2])
-
-    #render strings to text
-    title_text   = title_font.render("PySho!",True,WHITE)
-    start_text_1 = menu_font.render("Conquer",True,WHITE)
-    start_text_2 = menu_font.render("your foes!!",True,WHITE)
-    exit_text_1  = menu_font.render("Exit",True,WHITE)
-    exit_text_2  = menu_font.render("to class...",True,WHITE)
-        
-    # Put the image of the text on the screen at 250x250
-    screen.blit(title_text,   [98, 155])
-    screen.blit(start_text_1, [211, 460])
-    screen.blit(start_text_2, [186, 505])
-    screen.blit(exit_text_1,  [262, 595])
-    screen.blit(exit_text_2,  [203, 640])
-    
-# layers the hud on top of the game
-def hud():
-    # health and points values
-    health = player.get_hp()
-    points = 0
-    
-    # render strings to text
-    health_text = hud_font.render("Health: " + str(health), True, WHITE)
-    points_text = hud_font.render("Points: " + str(points), True, WHITE)
-    
-    # put the image of the text on the screen in the bottom left corner (
-    screen.blit(health_text, [15, 730])
-    screen.blit(points_text, [15, 765])
-    
 while not done:
     # Main event loop
     
@@ -224,11 +123,9 @@ while not done:
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
-            #print("User chose to quit.")
         elif event.type == pygame.KEYDOWN:
             # Figure out if it was an arrow key. If so
-            # adjust speed.
-            
+            # adjust speed.           
             # escape to pause/unpause the game
             if event.key == pygame.K_ESCAPE:
                 if not paused:
@@ -239,8 +136,6 @@ while not done:
                     pygame.mixer.music.unpause()
                     paused = False
                     running = True
-            #if event.key == pygame.K_ESCAPE: # have escape pause the game
-            #done = True
             if event.key == pygame.K_a:
                 player.mod_x_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_d:
@@ -269,8 +164,6 @@ while not done:
             if not running:
                 if mouse_pos[0]<426 and mouse_pos[0]>174:
                     if mouse_pos[1]<559 and mouse_pos[1]>459:
-                        #print("User wants to play!")
-                        #game.init()
                         if paused:
                             paused = False
                             pygame.mixer.music.unpause()
@@ -289,8 +182,6 @@ while not done:
     #update starfield background
     if not paused:
         #threading usage example. I'd like to contain the big
-        #update sweeps in individual threads per object.
-        #Ex, starfield update thread, projectile thread, enemy ai thread,...
         starfield_t=threading.Thread(target=starfield.update)
         starfield_t.start()
 
@@ -311,19 +202,11 @@ while not done:
         enemy_t=threading.Thread(target=enemy_hldr.update)
         enemy_t.start()
         enemy_proj_t=threading.Thread(target=enemy_hldr.update_proj)
-        enemy_proj_t.start()
-        #enemy_hldr.update()
-        #enemy_hldr.update_proj()
-        #updates the various projectile holders
-        # player_proj_holder.update()
-        # enemy_proj_holder.update()
-    
+        enemy_proj_t.start()   
     
     # Drawing code should go here  
     # clear the screen to black. Don't put other drawing commands
     # above this, or they will be erased with this command.
-    #if (draw_time == 4):
-        #draw_time = 0
     screen.fill(BLACK)
 
     #draw starfield background
@@ -333,29 +216,28 @@ while not done:
         # if not running, call pause/main menu, otherwise do game stuff
     if not running:
         if not paused:
-            main_menu()
+            menu.draw_menu()
         else:
             player_t.join()
             proj_t.join()
-            pause_menu()
+            enemy_hldr.draw()
+            enemy_hldr.draw_proj()
+            player.draw_proj()
+            menu.draw_pause(player.get_pos())
 
     else:
         # fire weapon if space bar is held down
-        # if spawn_proj:
-            # player.update_proj()
         enemy_hldr.draw()
         enemy_hldr.draw_proj()
         player.draw_proj()
             #call game class and do game things and update game variables and stuff
         player.draw(screen)
             # adds hud
-        hud()
+        menu.draw_hud()
         
         # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
-    ##draw_time=draw_time+1
     # --- Limit to 60 frames per second
-    #clock.tick(60)
     frame_counter = frame_counter+1    
     clock.tick_busy_loop(GAME_UPS)
 pygame.quit()
