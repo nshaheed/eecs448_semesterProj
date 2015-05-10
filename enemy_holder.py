@@ -40,7 +40,7 @@ class enemy_holder(object):
             ship_size = self.enemy_arr[i].get_art_size()
             
             # check if projectiles overlap with the current ship
-            for j in range(len[proj]):
+            for j in range(len(proj)):
                 # find if the boxes are intersecting
                 x_bool = math.abs(ship_pos[0] - (proj[0] + proj_size[0])) < (ship_size[0] + proj_size[0])
                 y_bool = math.abs(ship_pos[1] - (proj[1] + proj_size[1])) < (ship_size[1] + proj_size[1])
