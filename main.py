@@ -211,8 +211,10 @@ while not done:
 
     #draw starfield background
     starfield_t.join()
+
     starfield.draw(screen)
-        
+
+    #the process of thread joining should be double checked and cleaned up
         # if not running, call pause/main menu, otherwise do game stuff
     if not running:
         if not paused:
@@ -220,6 +222,8 @@ while not done:
         else:
             player_t.join()
             proj_t.join()
+            enemy_proj_t.join()
+            enemy_t.join()
             enemy_hldr.draw()
             enemy_hldr.draw_proj()
             player.draw_proj()
@@ -227,6 +231,10 @@ while not done:
 
     else:
         # fire weapon if space bar is held down
+        player_t.join()
+        proj_t.join()
+        enemy_proj_t.join()
+        enemy_t.join()
         enemy_hldr.draw()
         enemy_hldr.draw_proj()
         player.draw_proj()
