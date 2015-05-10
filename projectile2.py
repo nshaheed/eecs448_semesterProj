@@ -10,14 +10,13 @@ class Projectile (object):
     damage          = 0
     
     # initialization
-    def __init__(self, xval, yval, spd, ang, damg, filepath):
+    def __init__(self, xval, yval, spd, ang, damg, art):
         self.x        = xval
         self.y        = yval
         self.speed    = spd
         self.angle    = ang
         self.damage   = damg
-        self.filepath = filepath
-        self.setSprite(filepath)
+        self.sprite   = art
     
     def getx(self):
         return self.x
@@ -31,9 +30,6 @@ class Projectile (object):
     def getDamage(self):
         return self.damage
         
-    def getFilepath(self):
-        return self.filepath
-        
     def getSpeed(self):
         return self.speed
         
@@ -46,8 +42,8 @@ class Projectile (object):
     def sety(self, yval):
         self.y = yval
         
-    def setSprite(self, filepath):
-        self.sprite = pygame.image.load(filepath)
+    def setSprite(self, art):
+        self.sprite = art
         
     def setSpeed(self, spd):
         self.speed = spd

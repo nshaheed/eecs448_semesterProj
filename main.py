@@ -21,11 +21,14 @@ GREEN    = (   0, 255,   0)
 RED      = ( 255,   0,   0)
 BLUE     = (   0,   0, 255)
 
-#defins max fps
-GAME_FPS = 120
+#defins max ups
+GAME_UPS = 60
+
+#defines UPS divider
+#draw_time = int(GAME_UPS/30)
 
 #player move speed
-PLAYER_VEL = 5
+PLAYER_VEL = 10
 
 # creating the window
 size = (600, 800)
@@ -75,17 +78,13 @@ def mvmtPtrn1(x):
     else:
         return None
         
-proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, "Assets/Art/projectile.png")
+proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, p_proj_art_arr[0])
 weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 
 # object initialization
 player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
-enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,size,screen)
-
-#remove these two
-enemy_proj_holder  = projectile_temp.projectile_holder_object(e_proj_art_arr,size)
-player_proj_holder = projectile_temp.projectile_holder_object(p_proj_art_arr,size)
+enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,e_proj_art_arr,size,screen)
 
 # Select the font to use, size, (bold, italics)
 title_font = pygame.font.SysFont('Calibri', 140, True, False)
@@ -319,13 +318,15 @@ while not done:
     # Drawing code should go here  
     # clear the screen to black. Don't put other drawing commands
     # above this, or they will be erased with this command.
+    #if (draw_time == 4):
+        #draw_time = 0
     screen.fill(BLACK)
 
     #draw starfield background
     starfield_t.join()
     starfield.draw(screen)
-    
-    # if not running, call pause/main menu, otherwise do game stuff
+        
+        # if not running, call pause/main menu, otherwise do game stuff
     if not running:
         if not paused:
             main_menu()
@@ -341,20 +342,16 @@ while not done:
         enemy_hldr.draw()
         enemy_hldr.draw_proj()
         player.draw_proj()
-        #call game class and do game things and update game variables and stuff
-        #player_proj_holder.draw(screen)
+            #call game class and do game things and update game variables and stuff
         player.draw(screen)
-        #enemy_proj_holder.draw(screen)
-        
-
-        # adds hud
+            # adds hud
         hud()
-    
-    # Go ahead and update the screen with what we've drawn.
+        
+        # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
- 
+    ##draw_time=draw_time+1
     # --- Limit to 60 frames per second
     #clock.tick(60)
     frame_counter = frame_counter+1    
-    clock.tick_busy_loop(GAME_FPS)
+    clock.tick_busy_loop(GAME_UPS)
 pygame.quit()

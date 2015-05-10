@@ -20,8 +20,8 @@ class weapon(object):
         spd      = self.projType.getSpeed()
         ang      = self.projType.getAngle()
         dmg      = self.projType.getDamage()
-        filepath = self.projType.getFilepath()
-        projNew  = projectile2.Projectile(x,y,spd,ang,dmg,filepath)
+        sprite   = self.projType.getSprite()
+        projNew  = projectile2.Projectile(x,y,spd,ang,dmg,sprite)
         return projNew
         
     def get_pos(self):
