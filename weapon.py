@@ -59,12 +59,13 @@ class weapon(object):
         for i in range(len(self.proj)):
             self.proj[i].draw(self.context) # draw to screen
     
-    def updateProj(self,x,y,genNew):
+    def updateProj(self,x,y,genNew,alive):
+        #print(len(self.proj))
         self.pos  = (x,y) # update position
         removeIdx = []
         angle     = self.movementPattern(self.counter)
         
-        if genNew:
+        if genNew and alive:
             if angle != None: # movementPattern returned a valid number, this means that it is time to generate a new projectile
                 newProjectile = self.newProj(x,y)
                 newProjectile.setAngle(angle)

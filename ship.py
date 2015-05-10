@@ -63,6 +63,7 @@ class ship_object (object):
         def draw(self, context):
             #print("I'm drawing the enemy!!!!!")
             # only draw ship if it's alive
+            #print(self.alive)
             if self.alive:
                 context.blit(self.art, self.pos)
             
@@ -82,5 +83,5 @@ class ship_object (object):
             self.alive = alive
                 
         def update_proj(self,genNew):
-            self.weapon.updateProj(self.pos[0], self.pos[1], genNew)
+            self.weapon.updateProj(self.pos[0], self.pos[1], genNew, self.alive)
 

@@ -26,7 +26,8 @@ class enemy_object (ship.ship_object):
 
     # re-align since the ship is drawn from top-left instead of center
     def draw(self, context):
-        context.blit(self.art, [self.pos[0] - self.art.get_width()/2, self.pos[1]])
+        if self.alive:
+            context.blit(self.art, [self.pos[0] - self.art.get_width()/2, self.pos[1]])
 
 
 def euclideanDist(v1, v2):

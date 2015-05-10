@@ -47,8 +47,9 @@ class enemy_holder(object):
                 
                 # if there is a collision, kill the ship
                 if x_bool and y_bool:
-                    print("coll" + str(i))
+                    #print("coll" + str(i))
                     self.enemy_arr[i].set_alive(False)
+                    #print(self.enemy_arr[i].get_alive())
                     
     def update_proj_coll(self,player_pos,player_size=(32,32)):
         for i in range(len(self.enemy_arr)):
@@ -85,12 +86,21 @@ class enemy_holder(object):
             self.enemy_arr[i].draw_proj()
 
     def update_proj(self):
+    
+        # Finds which enemies are alive,
+        #   if an enemy is dead and it has
+        #   no projectiles, it is totally
+        #   dead, remove it
         removeIdx = []
         for i in range(len(self.enemy_arr)):
             self.enemy_arr[i].update_proj(True)
             if not self.enemy_arr[i].get_alive():
+               # print(len(self.enemy_arr[i].get_weapon().get_proj()))
                 if len(self.enemy_arr[i].get_weapon().get_proj()) == 0:
+                    # print("adding " + str(i))
                     removeIdx.append(i)
+                    
+        #print(removeIdx)
                     
         # removes enemies that are totally dead 
         for j in range(len(removeIdx)-1,-1,-1):
