@@ -16,22 +16,28 @@ class enemy_holder(object):
         self.enemy_arr = []
         self.art_arr = art_arr
         self.move_ptrn_arr = []
-        self.ai_func_arr = []
+        self.ai_func_arr = ai.aiList
         self.move_ptrn_arr.append(self.mvmtPtrn1)
-        self.ai_func_arr.append(ai.circling_ai)
         #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
 
     def update(self):
         [self.enemy_arr[i].update() for i in range(len(self.enemy_arr))]
         self.time = (self.time +1)%250
         if not self.time:
-            self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
+            self.add_random_enemy()
+            #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
 
     def draw(self):
         [self.enemy_arr[i].draw(self.context) for i in range(len(self.enemy_arr))]
 
-    def add_enemy(self,art,ai_func,weapon,weapon_ptrn):
-        self.enemy_arr.append(enemy.enemy_object(self.art_arr[random.randint(0,2)],self.context_size,self.context,ai_func(),weapon,self.proj1,weapon_ptrn))
+    def add_enemy(self,art,ai_obj,weapon, weapon_ptrn):
+        self.enemy_arr.append(enemy.enemy_object(art, self.context_size, self.context, ai_obj, weapon,self.proj1,weapon_ptrn))
+
+
+    def add_random_enemy(self):
+        (ai_func, args) = random.choice(ai.aiList)
+        ai_object = ai_func(*args)
+        self.add_enemy(random.choice(self.art_arr), ai_object, weapon.weapon, random.choice(self.move_ptrn_arr))
 
     def kill_enemy(self,i):
         self.enemy_arr.pop(i)
