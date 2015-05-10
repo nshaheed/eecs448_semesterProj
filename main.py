@@ -22,7 +22,7 @@ RED      = ( 255,   0,   0)
 BLUE     = (   0,   0, 255)
 
 #defins max fps
-GAME_FPS = 60
+GAME_FPS = 120
 
 #player move speed
 PLAYER_VEL = 5
@@ -310,6 +310,7 @@ while not done:
         proj_t=threading.Thread(target=player.update_proj,args =(spawn_proj,))
         proj_t.start()
         enemy_hldr.update()
+        enemy_hldr.update_proj()
         #updates the various projectile holders
         # player_proj_holder.update()
         # enemy_proj_holder.update()
@@ -337,7 +338,8 @@ while not done:
         # fire weapon if space bar is held down
         # if spawn_proj:
             # player.update_proj()
-        enemy_hldr.draw()    
+        enemy_hldr.draw()
+        enemy_hldr.draw_proj()
         player.draw_proj()
         #call game class and do game things and update game variables and stuff
         #player_proj_holder.draw(screen)

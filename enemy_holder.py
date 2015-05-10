@@ -4,10 +4,11 @@ import weapon
 import ai
 import math
 import random
+import threading
 
 class enemy_holder(object):
     def __init__(self,art_arr,context_size,context):
-        self.proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, "Assets/Art/projectile.png")
+        self.proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, "Assets/Art/Eprojectile_2.png")
         self.time = 0
         self.context_size = context_size
         self.context = context
@@ -32,13 +33,28 @@ class enemy_holder(object):
     def add_enemy(self,art,ai_func,weapon,weapon_ptrn):
         self.enemy_arr.append(enemy.enemy_object(self.art_arr[random.randint(0,2)],self.context_size,self.context,ai_func(),weapon,self.proj1,weapon_ptrn))
 
-    def kill_enemy(i):
+    def kill_enemy(self,i):
         self.enemy_arr.pop(i)
 
+    def draw_proj(self):
+        for i in range(len(self.enemy_arr)):
+            self.enemy_arr[i].draw_proj()
 
-    def mvmtPtrn1(x):
+    def update_proj(self):
+        threads = []
+        for i in range(len(self.enemy_arr)):
+            t=threading.Thread(target=self.enemy_arr[i].update_proj,args =(True,))
+            threads.append(t)
+        for t in threads:
+            t.start()
+
+        for x in threads:
+            x.join()
+
+
+    def mvmtPtrn1(self,x):
         if x % 8 == 0: # fire proj
-            return (1.5 * math.pi)
+            return (.5 * math.pi)
         else:
             return None    
         
