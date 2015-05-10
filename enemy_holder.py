@@ -27,12 +27,20 @@ class enemy_holder(object):
 
     def update(self):
         [self.enemy_arr[i].update() for i in range(len(self.enemy_arr))]
-        self.time = (self.time +1)%250
+        self.time = (self.time +1)%200#50
         if not self.time:
             self.add_random_enemy()
             #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
-            
     # detects collisions between enemy ships and player projectiles
+    '''
+    Game.target[i].xloc<(Game.proj[j].xloc+15)
+    &&
+    Game.target[i].xloc>(Game.proj[j].xloc-15)
+    &&
+    Game.target[i].yloc<(Game.proj[j].yloc+20)
+    &&
+    Game.target[i].yloc>(Game.proj[j].yloc-20)
+    '''
     def update_coll(self, proj, proj_size):
         # Go through all enemy ships
         for i in range(len(self.enemy_arr)):
@@ -63,6 +71,7 @@ class enemy_holder(object):
                 
             # if there is a collision, kill the ship
                 if x_bool and y_bool:
+                    del self.enemy_arr[i].weapon.proj[j]
                     return True
         return False
     
