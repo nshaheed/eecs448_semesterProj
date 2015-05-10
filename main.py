@@ -289,7 +289,7 @@ while not done:
         # update coords for player projectile, have spawn_proj be pass to update_proj
         proj_t=threading.Thread(target=player.update_proj,args =(spawn_proj,))
         proj_t.start()
-        
+        enemy_hldr.update()
         #updates the various projectile holders
         # player_proj_holder.update()
         # enemy_proj_holder.update()
@@ -317,11 +317,12 @@ while not done:
         # fire weapon if space bar is held down
         # if spawn_proj:
             # player.update_proj()
+        enemy_hldr.draw()    
         player.draw_proj()
         #call game class and do game things and update game variables and stuff
-        player_proj_holder.draw(screen)
+        #player_proj_holder.draw(screen)
         player.draw(screen)
-        enemy_proj_holder.draw(screen)
+        #enemy_proj_holder.draw(screen)
         
 
         # adds hud

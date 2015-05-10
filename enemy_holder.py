@@ -19,7 +19,10 @@ class enemy_holder(object):
         self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
 
     def update(self):
-        [self.enemy_arr[i].update() for i in range(0,len(self.enemy_arr))]
+        [self.enemy_arr[i].update() for i in range(len(self.enemy_arr))]
+
+    def draw(self):
+        [self.enemy_arr[i].draw(self.context) for i in range(len(self.enemy_arr))]
 
     def add_enemy(self,art,ai_func,weapon,weapon_ptrn):
         self.enemy_arr.append(enemy.enemy_object(self.art_arr[0],self.context_size,self.context,ai_func(),weapon,self.proj1,weapon_ptrn))

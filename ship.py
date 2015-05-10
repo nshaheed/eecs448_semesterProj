@@ -49,6 +49,7 @@ class ship_object (object):
             return self.pos[1]
 
         def draw(self, context):
+            #print("I'm drawing the enemy!!!!!")
             context.blit(self.art, self.pos)
             
         def draw_proj(self):
