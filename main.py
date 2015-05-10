@@ -280,8 +280,8 @@ while not done:
         player.update_proj(spawn_proj)
         
         #updates the various projectile holders
-        player_proj_holder.update()
-        enemy_proj_holder.update()
+        # player_proj_holder.update()
+        # enemy_proj_holder.update()
     
     
     # Drawing code should go here  

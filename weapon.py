@@ -15,15 +15,10 @@ class weapon(object):
 #    def __init__(self, xval, yval, spd, ang, damg, filepath):
     def newProj(self,x,y):
         spd      = self.projType.getSpeed()
-        # print(spd)
         ang      = self.projType.getAngle()
-        # print(ang)
         dmg      = self.projType.getDamage()
-        # print(dmg)
         filepath = self.projType.getFilepath()
-        # print(filepath)
         projNew  = projectile2.Projectile(x,y,spd,ang,dmg,filepath)
-        # print("----------------------")
         return projNew
         
     def get_pos(self):
@@ -50,49 +45,50 @@ class weapon(object):
     def set_projType(self, projType):
         self.projType = projType
         
+    # draws all projectiles
     def draw(self):
-        for i in range(0, len(self.proj) - 1):
-            # print("pos" + str(i) + "      (" + str(self.proj[i].getx()) + "," + str(self.proj[i].gety()) + ")")
+        for i in range(len(self.proj)):
             self.proj[i].draw(self.context) # draw to screen
-        
-    # first updateProj updates the weapons x,y location,
-    #    then it checks if it is time to add another projectile,
-    #    if so, it appends it to the proj array
-    #    then it cycles through all the projectiles, calls setNextLocation,
-    #    and then if the projectile is off screen, removes it,
-    #       else, it draw it.
-    #    for enemies, the projectile will have a positive speed, and for
-    #    the player will have a negative speed (assuming (0,0) is the 
-    #    top left corner
-    # updateProj(Int,Int)      :: Void 
+            print("     proj" + str(i) + ": " + str(self.proj[i].getx()) + "," + str(self.proj[i].gety()))
     
     def updateProj(self,x,y,genNew):
         self.pos  = (x,y) # update position
         removeIdx = []
         angle     = self.movementPattern(self.counter)
         
+        print("weapon pos:   " + str(self.pos))
         if genNew:
             if angle != None: # movementPattern returned a valid number, this means that it is time to generate a new projectile
+                print("new proj coord: " + str(self.pos))
+                print("-----------------------")
                 newProjectile = self.newProj(x,y)
                 newProjectile.setAngle(angle)
                 self.proj.append(newProjectile)
-                
-            self.counter = self.counter + 1
-            
+
         # run through all the projectiles, updating them on the screen.  If the projectiles are off the screen, 
         #   remove them from the list
         # note: use store a list of indexes to remove, use del on all those vals
-        for i in range(0, len(self.proj) - 1):
+        for i in range(len(self.proj)):
             # print("pos" + str(i) + "      (" + str(self.proj[i].getx()) + "," + str(self.proj[i].gety()) + ")")
             # self.proj[i].draw(self.context) # draw to screen
             self.proj[i].setNextLocation()
             
+            if i == 0:
+                print("zero")
+                
             # finds index of projectiles that are off screen and need to be removed
             if self.proj[i].getx() < -64 or self.proj[i].getx() >= self.context_size[0] + 64:
+                if i == 0: 
+                    print("zeroxclear")
                 removeIdx.append(i)
             if self.proj[i].gety() < -64 or self.proj[i].gety() >= self.context_size[0] + 64:
+                if i == 0: 
+                    print("zeroyclear")
                 removeIdx.append(i)
                 
         # removes projectiles that are off screen 
-        for j in range(0, len(removeIdx) - 1):
-            del self.proj[j]
+        for j in range(len(removeIdx)):
+            print("removeIdx:  " + str(removeIdx))
+            del self.proj[removeIdx[j]]
+            
+        self.counter = self.counter + 1

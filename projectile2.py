@@ -56,9 +56,6 @@ class Projectile (object):
         self.angle = ang
         
     def draw(self, context):
-        xstr = str(self.x)
-        ystr = str(self.y)
-        # print(xstr + "," + ystr)
         context.blit(self.sprite, [int(math.floor(self.x)), int(math.floor(self.y))])
         #context.blit(self.sprite, [80, 80])
         
