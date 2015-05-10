@@ -22,7 +22,7 @@ RED      = ( 255,   0,   0)
 BLUE     = (   0,   0, 255)
 
 #defins max ups
-GAME_UPS = 1000
+GAME_UPS = 60
 
 #player move speed
 PLAYER_VEL = 10
