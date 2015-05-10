@@ -31,6 +31,12 @@ class circling_ai(ai):
         r = self.radius
         self.angle += self.speed
         return [self.center[0] + r * math.cos(self.angle), self.center[1] + r * math.sin(self.angle)]
+        
+class sin_ai(ai):
+    # moves left to right in a sine pattern.
+    def __init__(self, amplitude = 50, speed = 0.1):
+        self.amplitude = amplitude
+        
 
 
 

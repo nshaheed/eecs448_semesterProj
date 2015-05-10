@@ -78,7 +78,7 @@ def mvmtPtrn1(x):
     else:
         return None
         
-proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, "Assets/Art/projectile.png")
+proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, p_proj_art_arr[0])
 weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 
 # object initialization
