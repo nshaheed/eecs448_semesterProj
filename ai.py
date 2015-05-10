@@ -22,6 +22,7 @@ class ai:
 class circling_ai(ai):
     """ radius: the radius of orbit; speed: speed of rotation (rad/frame)"""
     def __init__(self, radius = 50, speed = .1):
+        ai.__init__(self)
         self.radius = radius
         self.speed = speed
         self.angle = 0
@@ -39,12 +40,13 @@ class circling_ai(ai):
 class sin_ai(ai):
     # moves left to right in a sine pattern.
     def __init__(self, speed = 0.1):
-        self.amplitude = random.randint(25,context_size[0] - 50)
+        ai.__init__(self)
         self.speed     = speed
         self.angle     = 0
         
     # make sure ai doesn't spawn along the x axis closer than the amplitude of the ai
     def getStartPos(self, context_size):
+        self.amplitude = random.randint(25,context_size[0] - 50)
         print(str(context_size[0]) + "," + str(self.amplitude))
         randx = random.randint(self.amplitude, context_size[0] - self.amplitude)
         print(randx)

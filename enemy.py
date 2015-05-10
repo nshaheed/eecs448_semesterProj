@@ -7,6 +7,7 @@ class enemy_object (ship.ship_object):
         self.ai = ai
         self.inPosition = False
         self.patternStartPos = self.ai.getStartPos(context_size)
+        self.pos = self.ai.getOffscreenOrigin(context_size)
 
     def update(self):
         #ship.ship_object.update(self)
@@ -15,14 +16,14 @@ class enemy_object (ship.ship_object):
         else:
             dist = euclideanDist(self.pos, self.patternStartPos)
             if dist < self.ai.flyInSpeed:
-                self.pos = self.patternStartPos()
+                self.pos = self.patternStartPos
                 self.inPosition = True
             else:
-                distRatio = flyInSpeed / dist
+                distRatio = self.ai.flyInSpeed / dist
                 x = self.pos[0] + distRatio * (self.patternStartPos[0] - self.pos[0])
                 y = self.pos[1] + distRatio * (self.patternStartPos[1] - self.pos[1])
                 self.pos = [x,y]
 
 
 def euclideanDist(v1, v2):
-    return math.sqrt(sum([v1[i] * v2[i] for i in range(len(v1))]))
+    return math.sqrt(sum([(v1[i] - v2[i]) ** 2 for i in range(len(v1))]))
