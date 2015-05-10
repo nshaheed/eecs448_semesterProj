@@ -2,7 +2,7 @@ class ship_object (object):
 #     def __init__(self,coord,projType,movementPattern,context,context_size):
 
         def __init__(self,art,context_size,context,weapon,mvmt_ptrn=0):
-            self.weapon       = weapon([0,0],mvmt_ptrn,context,context_size) # TODO: add proper initialization parameters
+            self.weapon       = weapon([0,0],proj1,mvmt_ptrn,context,context_size) # TODO: add proper initialization parameters
             self.art          = art
             self.hp           = 100
             self.context_size = context_size
