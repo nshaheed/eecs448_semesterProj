@@ -39,15 +39,19 @@ class circling_ai(ai):
         
 class sin_ai(ai):
     # moves left to right in a sine pattern.
-    def __init__(self, speed = 0.1):
+    def __init__(self, amplitude = None, speed = None):
         ai.__init__(self)
+        self.amplitude = amplitude
         self.speed     = speed
         self.angle     = 0
         
     # make sure ai doesn't spawn along the x axis closer than the amplitude of the ai
     def getStartPos(self, context_size):
-        self.amplitude = random.randint(25,context_size[0]/2 - 50)
-        print(str(context_size[0]) + "," + str(self.amplitude))
+        if self.amplitude == None:
+            self.amplitude = random.randint(25,context_size[0]/2 - 50)
+        if self.speed == None:
+            self.speed = 10.0 / self.amplitude
+        print(str(self.speed) + "," + str(self.amplitude))
         randx = random.randint(self.amplitude, context_size[0] - self.amplitude)
         self.center = [randx, random.randint(0, context_size[1]/2)]
         return self.center
@@ -60,5 +64,5 @@ class sin_ai(ai):
 
 
 # a list of ai constructors along with parameters - when generating a new enemy, choose randomly from among these 
-aiList = [(ai,[]),(circling_ai,[]),(circling_ai,[50,-.1]),(sin_ai,[0.1])]
-
+aiList = [(ai,[]),(circling_ai,[]),(circling_ai,[50,-.1]),(sin_ai,[])]
+#aiList = [(sin_ai,[])] # testing
