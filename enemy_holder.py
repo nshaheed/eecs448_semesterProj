@@ -22,6 +22,9 @@ class enemy_holder(object):
         self.move_ptrn_arr.append(self.mvmtPtrn1)
         #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
 
+    def reset(self):
+        self.enemy_arr     = []
+
     def update(self):
         [self.enemy_arr[i].update() for i in range(len(self.enemy_arr))]
         self.time = (self.time +1)%250

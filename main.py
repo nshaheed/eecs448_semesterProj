@@ -87,10 +87,12 @@ proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, p_proj_art_arr[0]
 weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 
 # object initialization
+
 menu               = menu.menu_object(menu_art,size,screen)
 player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
 enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,e_proj_art_arr,size,screen)
+
 
 #tracks frames for timers
 frame_counter = 0
@@ -173,7 +175,14 @@ while not done:
                             pygame.mixer.music.play(-1)
                         running=True;
                     elif mouse_pos[1]<689 and mouse_pos[1]>589:
-                        done = True  # Flag that we are done so we exit this loop
+                        if paused:
+                            paused = False
+                            player.__init__(player_ship,size,screen,weap1)
+                            enemy_hldr.reset()
+                            pygame.mixer.music.load("Assets/Music/main_menu.mp3")
+                            pygame.mixer.music.play(-1)
+                        else:
+                            done= True  # Flag that we are done so we exit this loop
                         #print("User wants to leave...")
             #print("User pressed a mouse button")
             
