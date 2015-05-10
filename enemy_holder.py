@@ -71,4 +71,17 @@ class enemy_holder(object):
             return (.5 * math.pi)
         else:
             return None    
+       
+# straight line       
+# def mvmtPtrn1(x):
+    # if x % 8 == 0: # fire proj
+        # return (1.5 * math.pi)
+    # else:
+        # return None
         
+ # spray
+# def mvmtPtrn2(x):
+    # if x % 8 == 0: # fire proj
+        # return (1.5 * math.pi)
+    # else:
+        # return None
