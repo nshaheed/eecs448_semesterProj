@@ -8,6 +8,7 @@ import projectile_temp
 import threading
 import projectile2 
 import weapon
+import enemy_holder
 
 # initializing pygame
 pygame.init()
@@ -51,6 +52,10 @@ player_ship    = pygame.image.load("Assets/Art/player_ship.png")#.convert()
 enemy_ship     = pygame.image.load("Assets/Art/enemy_ship.png")#.convert()
 kamina_ship    = pygame.image.load("Assets/Art/kamina_ship.png")#.convert()
 boss_ship      = pygame.image.load("Assets/Art/enemy_ship_mb0.png")#.convert()
+enemy_ship_arr = []
+enemy_ship_arr.append(enemy_ship)
+enemy_ship_arr.append(kamina_ship)
+enemy_ship_arr.append(boss_ship)
 # shields
 shield         = pygame.image.load("Assets/Art/shield_dmg_0.png")#.convert()
 shield_dmg     = pygame.image.load("Assets/Art/shield_dmg_1.png")#.convert()
@@ -80,6 +85,9 @@ weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 # object initialization
 player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
+enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,size,screen)
+
+#remove these two
 enemy_proj_holder  = projectile_temp.projectile_holder_object(e_proj_art_arr,size)
 player_proj_holder = projectile_temp.projectile_holder_object(p_proj_art_arr,size)
 
