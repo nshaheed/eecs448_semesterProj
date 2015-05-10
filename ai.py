@@ -37,6 +37,16 @@ class sin_ai(ai):
     def __init__(self, amplitude = 50, speed = 0.1):
         self.amplitude = amplitude
         self.speed     = speed
+        self.angle     = 0
+        
+    # make sure ai doesn't spawn along the x axis closer than the amplitude of the ai
+    def getStartPos(self, context_size):
+        self.center = [random.randint(amplitude, context_size[0] - amplitude), random.randint(0, context_size[1]/2)]
+        return self.center
+        
+    def getNextPos(self, pos):
+        self.angle += self.angle
+        return [math.sin(self.angle), self.center[1]]
         
 
 
