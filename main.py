@@ -93,6 +93,8 @@ player             = player.player_object(player_ship,size,screen,weap1)
 starfield          = background.starfield_object(size)
 enemy_hldr         = enemy_holder.enemy_holder(enemy_ship_arr,e_proj_art_arr,size,screen)
 
+#tracks if the player is alive
+player_alive = True
 
 #tracks frames for timers
 frame_counter = 0
@@ -169,7 +171,7 @@ while not done:
                         if paused:
                             paused = False
                             pygame.mixer.music.unpause()
-                        else:
+                        elif player_alive:
                             pygame.mixer.music.stop()
                             pygame.mixer.music.load("Assets/Music/gmPly.mp3")
                             pygame.mixer.music.play(-1)
@@ -177,6 +179,8 @@ while not done:
                     elif mouse_pos[1]<689 and mouse_pos[1]>589:
                         if paused:
                             paused = False
+                            player_alive = True
+                            menu.set_hp(100)
                             player.__init__(player_ship,size,screen,weap1)
                             enemy_hldr.reset()
                             pygame.mixer.music.load("Assets/Music/main_menu.mp3")
@@ -233,10 +237,15 @@ while not done:
             proj_t.join()
             enemy_proj_t.join()
             enemy_t.join()
-            enemy_hldr.draw()
+
+            #drawing for the pause menu
             enemy_hldr.draw_proj()
+            enemy_hldr.draw()
             player.draw_proj()
-            menu.draw_pause(player.get_pos())
+            if player_alive:
+                menu.draw_pause(player.get_pos())
+            else:
+                menu.draw_game_over(player.get_pos())
 
     else:
         # fire weapon if space bar is held down
@@ -245,13 +254,13 @@ while not done:
         proj_t.join()
         enemy_proj_t.join()
         enemy_t.join()
-        
+
+        #begin the final updates and drawing
         enemy_hldr.update_coll(player.get_weapon().get_proj_pos(),player.get_weapon().get_proj_art_size())
         if enemy_hldr.update_proj_coll(player.get_pos()):
-            menu.dec_hp()
-            
-        enemy_hldr.draw()
+            menu.dec_hp()        
         enemy_hldr.draw_proj()
+        enemy_hldr.draw()
         player.draw_proj()
             #call game class and do game things and update game variables and stuff
         player.draw(screen)
@@ -259,6 +268,12 @@ while not done:
         menu.draw_hud()
         
         # Go ahead and update the screen with what we've drawn.
+    if not menu.get_hp():
+    #if not True:
+        player_alive = False
+        paused = True
+        running = False
+    
     pygame.display.flip()
     # --- Limit to 60 frames per second
     frame_counter = frame_counter+1    

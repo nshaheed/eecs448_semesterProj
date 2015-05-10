@@ -14,9 +14,11 @@ class menu_object (object):
             self.BLUE     = (   0,   0, 255)
             # Select the font to use, size, (bold, italics)
             self.title_font = pygame.font.SysFont('Calibri', 140, True, False)
+            self.title_font = pygame.font.SysFont('Calibri', 100, True, False)
             self.menu_font  = pygame.font.SysFont('Calibri', 50,  True, False)
             self.hud_font   = pygame.font.SysFont('Calibri', 25,  True, False) 
             self.title_text = self.title_font.render("PySho!",True,self.WHITE)
+            self.game_over_text = self.title_font.render("You Lose!",True,self.WHITE)
             self.start_text_1 = self.menu_font.render("Conquer",True,self.WHITE)
             self.start_text_2 = self.menu_font.render("your foes!!",True,self.WHITE)
             self.exit_text_1 = self.menu_font.render("Exit",True,self.WHITE)
@@ -28,13 +30,18 @@ class menu_object (object):
             self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
             self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             print("Menu Initialized!")
+
+        def get_hp(self):
+            return self.health
             
-        def set_hp(self,hp):
+        def set_hp(self,health):
             self.health = health
             self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
 
         def dec_hp(self,dec=1):
             self.health = self.health-dec
+            if self.health<0:
+                self.health = 0
             self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
 
         def set_points(self,points):
@@ -68,9 +75,11 @@ class menu_object (object):
         def draw_menu(self):
             #draw menu objects
             self.draw_ships()
+            
             pygame.draw.rect(self.context, self.RED, self.menu_pos[0])
             pygame.draw.rect(self.context, self.RED, self.menu_pos[1])
             pygame.draw.rect(self.context, self.RED, self.menu_pos[2])
+            
             self.context.blit(self.title_text, [98, 155])
             self.context.blit(self.start_text_1, [211, 460])
             self.context.blit(self.start_text_2, [186, 505])
@@ -79,12 +88,22 @@ class menu_object (object):
 
         def draw_pause(self,player_pos):
             self.draw_ships(player_pos,True)
-            #pygame.draw.rect(self.context, self.RED, self.menu_pos[0])
+            
             pygame.draw.rect(self.context, self.RED, self.menu_pos[1])
             pygame.draw.rect(self.context, self.RED, self.menu_pos[2])
-            #self.context.blit(self.title_text, [98, 155])
+
             self.context.blit(self.pause_text_1, [211, 460])
             self.context.blit(self.pause_text_2, [186, 505])
+            self.context.blit(self.menu_return_text_1, [262, 595])
+            self.context.blit(self.menu_return_text_2, [203, 640])
+
+        def draw_game_over(self,player_pos):
+            self.draw_ships(player_pos,True)
+            
+            pygame.draw.rect(self.context, self.RED, self.menu_pos[0])
+            pygame.draw.rect(self.context, self.RED, self.menu_pos[2])
+            
+            self.context.blit(self.game_over_text, [98, 155])
             self.context.blit(self.menu_return_text_1, [262, 595])
             self.context.blit(self.menu_return_text_2, [203, 640])
 
