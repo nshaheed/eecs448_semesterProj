@@ -63,8 +63,8 @@ def pause_menu():
     title_text = title_font.render("PySho!",True,WHITE)
     start_text_1 = menu_font.render("Resume",True,WHITE)
     start_text_2 = menu_font.render("conquering",True,WHITE)
-    exit_text_1 = menu_font.render("Exit",True,WHITE)
-    exit_text_2 = menu_font.render("to class...",True,WHITE)
+    exit_text_1 = menu_font.render("Go to",True,WHITE)
+    exit_text_2 = menu_font.render("menu...",True,WHITE)
         
     # Put the image of the text on the screen at 250x250
     screen.blit(title_text, [98, 155])

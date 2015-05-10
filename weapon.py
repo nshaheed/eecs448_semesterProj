@@ -12,7 +12,10 @@ class weapon(object):
         self.context         = context
         self.context_size    = context_size
         
-#    def __init__(self, xval, yval, spd, ang, damg, filepath):
+    def reset():
+        del self.proj[:]
+        self.counter = 0
+        
     def newProj(self,x,y):
         spd      = self.projType.getSpeed()
         ang      = self.projType.getAngle()
@@ -65,7 +68,6 @@ class weapon(object):
         #   remove them from the list
         # note: use store a list of indexes to remove, use del on all those vals
         for i in range(len(self.proj)):
-            # self.proj[i].draw(self.context) # draw to screen
             self.proj[i].setNextLocation()
                 
             # finds index of projectiles that are off screen and need to be removed
