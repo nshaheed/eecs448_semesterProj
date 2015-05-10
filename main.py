@@ -273,9 +273,11 @@ while not done:
         # if (spawn_proj and not (frame_counter%8)):
                 # player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
 
-        # update coords for player projectile
         #updates player loc
         player.update()
+        
+        # update coords for player projectile, have spawn_proj be pass to update_proj
+        player.update_proj(spawn_proj)
         
         #updates the various projectile holders
         player_proj_holder.update()
@@ -302,7 +304,7 @@ while not done:
         # fire weapon if space bar is held down
         # if spawn_proj:
             # player.update_proj()
-        player.update_proj()
+        player.draw_proj()
         #call game class and do game things and update game variables and stuff
         player_proj_holder.draw(screen)
         player.draw(screen)

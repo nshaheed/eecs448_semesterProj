@@ -1,4 +1,3 @@
-from   copy import deepcopy
 import projectile2
 
 # make cleanup function
@@ -14,12 +13,7 @@ class weapon(object):
         self.context_size    = context_size
         
 #    def __init__(self, xval, yval, spd, ang, damg, filepath):
-    def newProj(self):
-        # print("newProj ------------")
-        xval     = self.pos[0]
-        # print(xval)
-        yval     = self.pos[1]
-        # print(yval)
+    def newProj(self,x,y):
         spd      = self.projType.getSpeed()
         # print(spd)
         ang      = self.projType.getAngle()
@@ -28,7 +22,7 @@ class weapon(object):
         # print(dmg)
         filepath = self.projType.getFilepath()
         # print(filepath)
-        projNew  = projectile2.Projectile(xval,yval,spd,ang,dmg,filepath)
+        projNew  = projectile2.Projectile(x,y,spd,ang,dmg,filepath)
         # print("----------------------")
         return projNew
         
@@ -56,6 +50,11 @@ class weapon(object):
     def set_projType(self, projType):
         self.projType = projType
         
+    def draw(self):
+        for i in range(0, len(self.proj) - 1):
+            # print("pos" + str(i) + "      (" + str(self.proj[i].getx()) + "," + str(self.proj[i].gety()) + ")")
+            self.proj[i].draw(self.context) # draw to screen
+        
     # first updateProj updates the weapons x,y location,
     #    then it checks if it is time to add another projectile,
     #    if so, it appends it to the proj array
@@ -67,32 +66,25 @@ class weapon(object):
     #    top left corner
     # updateProj(Int,Int)      :: Void 
     
-    def updateProj(self,x,y):
-    
-        xstr = str(x)
-        ystr = str(y)
-        # print("upd coord: " + xstr + "," + ystr)
-        
-        self.pos  = (x,y)
-        # print("pos:       " + str(self.pos))
-        angle     = self.movementPattern(self.counter)
-        # print("angle:     " + str(angle))    
+    def updateProj(self,x,y,genNew):
+        self.pos  = (x,y) # update position
         removeIdx = []
+        angle     = self.movementPattern(self.counter)
         
-        if angle != None: # movementPattern returned a valid number, this means that it is time to generate a new projectile
-            # print(len(self.proj))
-            newProjectile = self.newProj()
-            newProjectile.setAngle(angle)
-            self.proj.append(newProjectile)
-            # print(len(self.proj))
-            # print("")
+        if genNew:
+            if angle != None: # movementPattern returned a valid number, this means that it is time to generate a new projectile
+                newProjectile = self.newProj(x,y)
+                newProjectile.setAngle(angle)
+                self.proj.append(newProjectile)
+                
+            self.counter = self.counter + 1
             
         # run through all the projectiles, updating them on the screen.  If the projectiles are off the screen, 
         #   remove them from the list
         # note: use store a list of indexes to remove, use del on all those vals
         for i in range(0, len(self.proj) - 1):
             # print("pos" + str(i) + "      (" + str(self.proj[i].getx()) + "," + str(self.proj[i].gety()) + ")")
-            self.proj[i].draw(self.context) # draw to screen
+            # self.proj[i].draw(self.context) # draw to screen
             self.proj[i].setNextLocation()
             
             # finds index of projectiles that are off screen and need to be removed
@@ -101,12 +93,6 @@ class weapon(object):
             if self.proj[i].gety() < -64 or self.proj[i].gety() >= self.context_size[0] + 64:
                 removeIdx.append(i)
                 
-        # removes projectiles 
+        # removes projectiles that are off screen 
         for j in range(0, len(removeIdx) - 1):
             del self.proj[j]
-        
-        
-                
-        self.counter = self.counter + 1
-            
-        
