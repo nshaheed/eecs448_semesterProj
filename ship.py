@@ -9,6 +9,11 @@ class ship_object (object):
             self.context      = context
             self.pos          = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
             self.vel          = [0,0]
+            
+        def reset():
+            self.hp  = 100
+            self.pos = [(self.context_size[0]/2)-16,(self.context_size[1]/2)-16]
+            self.weapon.reset()
 
         def set_x_vel(self,vel):
             self.vel[0]=vel

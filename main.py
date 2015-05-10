@@ -22,7 +22,7 @@ RED      = ( 255,   0,   0)
 BLUE     = (   0,   0, 255)
 
 #defins max fps
-GAME_FPS = 60
+GAME_FPS = 120
 
 #player move speed
 PLAYER_VEL = 5
@@ -67,10 +67,6 @@ p_proj_art_arr.append(pygame.image.load("Assets/Art/projectile.png"))#.convert()
 e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile_2.png"))#.convert())
 e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile.png"))#.convert())
 print("Art loaded!")
-
-# initialize weapons & projectiles
-#     def __init__(self,coord,projType,movementPattern,context,context_size):
-#    def __init__(self, xval, yval, spd, ang, damg, filepath):
 
 # spawn a proj every other frame, returning 1.5 * pi when returning an angle
 def mvmtPtrn1(x):
@@ -138,8 +134,37 @@ def pause_menu():
     title_text   = title_font.render("PySho!",True,WHITE)
     start_text_1 = menu_font.render("Resume",True,WHITE)
     start_text_2 = menu_font.render("conquering",True,WHITE)
-    exit_text_1  = menu_font.render("Exit",True,WHITE)
-    exit_text_2  = menu_font.render("to class...",True,WHITE)
+    exit_text_1  = menu_font.render("Go to",True,WHITE)
+    exit_text_2  = menu_font.render("menu...",True,WHITE)
+        
+    # Put the image of the text on the screen at 250x250
+    screen.blit(title_text,   [98, 155])
+    screen.blit(start_text_1, [211, 460])
+    screen.blit(start_text_2, [186, 505])
+    screen.blit(exit_text_1,  [262, 595])
+    screen.blit(exit_text_2,  [203, 640])
+    
+def gameover_menu():
+    #call menu class and do menu things
+
+    #menu ship preview
+    screen.blit(player_ship, player.get_pos())
+    screen.blit(enemy_ship,  ((size[0]/2)-121, 60))
+    screen.blit(enemy_ship,  ((size[0]/2)+89, 60))
+    screen.blit(boss_ship,   ((size[0]/2)-75, 20))
+
+        
+    # menu structure code        
+    pygame.draw.rect(screen, RED, menu_pos[0])
+    pygame.draw.rect(screen, RED, menu_pos[1])
+    pygame.draw.rect(screen, RED, menu_pos[2])
+
+    #render strings to text
+    title_text   = title_font.render("PySho!",True,WHITE)
+    start_text_1 = menu_font.render("Restart",True,WHITE)
+    start_text_2 = menu_font.render("the game",True,WHITE)
+    exit_text_1  = menu_font.render("Go to",True,WHITE)
+    exit_text_2  = menu_font.render("menu...",True,WHITE)
         
     # Put the image of the text on the screen at 250x250
     screen.blit(title_text,   [98, 155])
@@ -276,11 +301,6 @@ while not done:
     else:
         #call game class and do game things and update game variables and stuff
 
-        #determines if the player is firing and limits then to a predefined firing rate (framerate/counter modulus)
-
-        # if (spawn_proj and not (frame_counter%8)):
-                # player_proj_holder.spawn_proj([0,player.get_pos()[0],player.get_pos()[1],0,-10,0])
-
         #updates player loc
         player_t=threading.Thread(target=player.update)
         player_t.start()
@@ -290,6 +310,7 @@ while not done:
         proj_t=threading.Thread(target=player.update_proj,args =(spawn_proj,))
         proj_t.start()
         enemy_hldr.update()
+        enemy_hldr.update_proj()
         #updates the various projectile holders
         # player_proj_holder.update()
         # enemy_proj_holder.update()
@@ -317,7 +338,8 @@ while not done:
         # fire weapon if space bar is held down
         # if spawn_proj:
             # player.update_proj()
-        enemy_hldr.draw()    
+        enemy_hldr.draw()
+        enemy_hldr.draw_proj()
         player.draw_proj()
         #call game class and do game things and update game variables and stuff
         #player_proj_holder.draw(screen)

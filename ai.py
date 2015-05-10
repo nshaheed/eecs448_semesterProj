@@ -15,7 +15,6 @@ class ai:
     def getNextPos(self, pos):
         return pos
 
-
 class circling_ai(ai):
     """ radius: the radius of orbit; speed: speed of rotation (rad/frame)"""
     def __init__(self, radius = 50, speed = .1):
