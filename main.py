@@ -308,8 +308,12 @@ while not done:
         # update coords for player projectile, have spawn_proj be pass to update_proj
         proj_t=threading.Thread(target=player.update_proj,args =(spawn_proj,))
         proj_t.start()
-        enemy_hldr.update()
-        enemy_hldr.update_proj()
+        enemy_t=threading.Thread(target=enemy_hldr.update)
+        enemy_t.start()
+        enemy_proj_t=threading.Thread(target=enemy_hldr.update_proj)
+        enemy_proj_t.start()
+        #enemy_hldr.update()
+        #enemy_hldr.update_proj()
         #updates the various projectile holders
         # player_proj_holder.update()
         # enemy_proj_holder.update()
