@@ -32,24 +32,36 @@ class enemy_holder(object):
             self.add_random_enemy()
             #self.add_enemy(self.art_arr[0],self.ai_func_arr[0],weapon.weapon,self.move_ptrn_arr[0])
             
+    # def points(self):
+        # return len([
+            
     # detects collisions between enemy ships and player projectiles
     def update_coll(self, proj, proj_size):
+
+        points = 0
         # Go through all enemy ships
         for i in range(len(self.enemy_arr)):
             ship_pos  = self.enemy_arr[i].get_pos()
             ship_size = self.enemy_arr[i].get_art_size()
             
+            # print("ship pos:  " + str(ship_pos))
+            # print("ship size: " + str(ship_size))
+            
             # check if projectiles overlap with the current ship
             for j in range(len(proj)):
                 # find if the boxes are intersecting
-                x_bool = math.fabs(ship_pos[0] - (proj[j][0] + proj_size[0])) < (ship_size[0] + proj_size[0])
-                y_bool = math.fabs(ship_pos[1] - (proj[j][1] + proj_size[1])) < (ship_size[1] + proj_size[1])
+                x_bool = math.fabs(ship_pos[0] - (proj[j][0] + proj_size[0])) + 15 < (ship_size[0] + proj_size[0])
+                y_bool = math.fabs(ship_pos[1] - (proj[j][1] + proj_size[1])) + 15 < (ship_size[1] + proj_size[1])
                 
                 # if there is a collision, kill the ship
                 if x_bool and y_bool:
                     #print("coll" + str(i))
                     self.enemy_arr[i].set_alive(False)
+                    points += 1
                     #print(self.enemy_arr[i].get_alive())
+                  
+        # print(points)
+        return points
                     
     def update_proj_coll(self,player_pos,player_size=(32,32)):
         for i in range(len(self.enemy_arr)):

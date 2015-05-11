@@ -1,34 +1,34 @@
 import pygame
 class menu_object (object):
         def __init__(self,art,context_size,context):
-            self.menu_pos = [(90,120,420,200),(175,460,250,100),(175,590,250,100)]
-            self.art_arr = art
-            self.context_size = context_size
-            self.context = context
-            self.health = 100
-            self.points = 0
-            self.BLACK    = (   0,   0,   0)
-            self.WHITE    = ( 255, 255, 255)
-            self.GREEN    = (   0, 255,   0)
-            self.RED      = ( 255,   0,   0)
-            self.BLUE     = (   0,   0, 255)
+            self.menu_pos           = [(90,120,420,200),(175,460,250,100),(175,590,250,100)]
+            self.art_arr            = art
+            self.context_size       = context_size
+            self.context            = context
+            self.health             = 100
+            self.points             = 0
+            self.BLACK              = (   0,   0,   0)
+            self.WHITE              = ( 255, 255, 255)
+            self.GREEN              = (   0, 255,   0)
+            self.RED                = ( 255,   0,   0)
+            self.BLUE               = (   0,   0, 255)
             # Select the font to use, size, (bold, italics)
-            self.title_font = pygame.font.SysFont('Calibri', 140, True, False)
-            self.game_over_font = pygame.font.SysFont('Calibri', 100, True, False)
-            self.menu_font  = pygame.font.SysFont('Calibri', 50,  True, False)
-            self.hud_font   = pygame.font.SysFont('Calibri', 25,  True, False) 
-            self.title_text = self.title_font.render("PySho!",True,self.WHITE)
-            self.game_over_text = self.game_over_font.render("You Lose!",True,self.WHITE)
-            self.start_text_1 = self.menu_font.render("Conquer",True,self.WHITE)
-            self.start_text_2 = self.menu_font.render("your foes!!",True,self.WHITE)
-            self.exit_text_1 = self.menu_font.render("Exit",True,self.WHITE)
-            self.exit_text_2 = self.menu_font.render("to class...",True,self.WHITE)
-            self.pause_text_1 = self.menu_font.render("Resume",True,self.WHITE)
-            self.pause_text_2 = self.menu_font.render("conquering",True,self.WHITE)
+            self.title_font         = pygame.font.SysFont('Calibri', 140, True, False)
+            self.game_over_font     = pygame.font.SysFont('Calibri', 100, True, False)
+            self.menu_font          = pygame.font.SysFont('Calibri', 50,  True, False)
+            self.hud_font           = pygame.font.SysFont('Calibri', 25,  True, False) 
+            self.title_text         = self.title_font.render("PySho!",True,self.WHITE)
+            self.game_over_text     = self.game_over_font.render("You Lose!",True,self.WHITE)
+            self.start_text_1       = self.menu_font.render("Conquer",True,self.WHITE)
+            self.start_text_2       = self.menu_font.render("your foes!!",True,self.WHITE)
+            self.exit_text_1        = self.menu_font.render("Exit",True,self.WHITE)
+            self.exit_text_2        = self.menu_font.render("to class...",True,self.WHITE)
+            self.pause_text_1       = self.menu_font.render("Resume",True,self.WHITE)
+            self.pause_text_2       = self.menu_font.render("conquering",True,self.WHITE)
             self.menu_return_text_1 = self.menu_font.render("Go to",True,self.WHITE)
             self.menu_return_text_2 = self.menu_font.render("menu...",True,self.WHITE)
-            self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
-            self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
+            self.health_text        = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
+            self.points_text        = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             print("Menu Initialized!")
 
         def get_hp(self):
@@ -47,6 +47,10 @@ class menu_object (object):
         def set_points(self,points):
             self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             self.points = points
+            
+        def add_points(self,points):
+            self.points += points
+            self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             
         def clicked(self,mouse_pos):
             #check to see if the mouse pos is inside the buttons.
