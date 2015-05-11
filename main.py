@@ -117,6 +117,12 @@ paused = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
+# counts of number of WASD/arrow keys of given direction pushed
+lcount = 0
+rcount = 0
+ucount = 0
+dcount = 0
+
 # holds menu button positions and sizes
 menu_pos = [(90,120,420,200),(175,460,250,100),(175,590,250,100)]
 pygame.mixer.music.play(-1)
@@ -144,29 +150,45 @@ while not done:
                     paused = False
                     running = True
             if event.key in (pygame.K_a, pygame.K_LEFT):
-                player.mod_x_vel(-1*PLAYER_VEL)
+                if lcount == 0:
+                    player.mod_x_vel(-1*PLAYER_VEL)
+                lcount += 1
             if event.key in (pygame.K_d, pygame.K_RIGHT):
-                player.mod_x_vel(PLAYER_VEL)
+                if rcount == 0:
+                    player.mod_x_vel(PLAYER_VEL)
+                rcount += 1
             if event.key in (pygame.K_w, pygame.K_UP):
-                player.mod_y_vel(-1*PLAYER_VEL)
+                if ucount == 0:
+                    player.mod_y_vel(-1*PLAYER_VEL)
+                ucount += 1
             if event.key in (pygame.K_s, pygame.K_DOWN):
-                player.mod_y_vel(PLAYER_VEL)
+                if dcount == 0:
+                    player.mod_y_vel(PLAYER_VEL)
+                dcount += 1
             if event.key == pygame.K_SPACE:
                 spawn_proj = True           
             #print("User pressed a key.")
         elif event.type == pygame.KEYUP:
             # If it is an arrow key, reset vector back to zero
             if event.key in (pygame.K_a, pygame.K_LEFT):
-                player.mod_x_vel(PLAYER_VEL)
+                lcount -= 1
+                if lcount == 0:
+                    player.mod_x_vel(PLAYER_VEL)
             if event.key in (pygame.K_d, pygame.K_RIGHT):
-                player.mod_x_vel(-1*PLAYER_VEL)
+                rcount -= 1
+                if rcount == 0:
+                    player.mod_x_vel(-1*PLAYER_VEL)
             if event.key in (pygame.K_w, pygame.K_UP):
-                player.mod_y_vel(PLAYER_VEL)
+                ucount -= 1
+                if ucount == 0:
+                    player.mod_y_vel(PLAYER_VEL)
             if event.key in (pygame.K_s, pygame.K_DOWN):
-                player.mod_y_vel(-1*PLAYER_VEL)
+                dcount -= 1
+                if dcount == 0:
+                    player.mod_y_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = False
-            #print("User let go of a key.")
+            #print(lcount,rcount,ucount,dcount)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if not running:
                 if mouse_pos[0]<426 and mouse_pos[0]>174:
