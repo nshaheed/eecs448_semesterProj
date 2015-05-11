@@ -45,8 +45,8 @@ class menu_object (object):
             self.health_text = self.hud_font.render("Health: " + str(self.health), True, self.WHITE)
 
         def set_points(self,points):
-            self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             self.points = points
+            self.points_text = self.hud_font.render("Points: " + str(self.points), True, self.WHITE)
             
         def add_points(self,points):
             self.points += points

@@ -184,6 +184,7 @@ while not done:
                             paused = False
                             player_alive = True
                             menu.set_hp(100)
+                            menu.set_points(0)
                             player.__init__(player_ship,size,screen,weap1)
                             enemy_hldr.reset()
                             pygame.mixer.music.load("Assets/Music/main_menu.mp3")
@@ -258,12 +259,8 @@ while not done:
         enemy_proj_t.join()
         enemy_t.join()
 
-        # collision detection & update points
-        points = enemy_hldr.update_coll(player.get_weapon().get_proj_pos(),player.get_weapon().get_proj_art_size())
-        # print(points)
-        menu.add_points(points)
-
         #begin the final updates and drawing
+        enemy_hldr.update_coll(player.get_weapon().get_proj_pos(),player.get_weapon().get_proj_art_size())
         if enemy_hldr.update_proj_coll(player.get_pos()):
             menu.dec_hp()        
         enemy_hldr.draw_proj()
@@ -275,8 +272,8 @@ while not done:
         menu.draw_hud()
         
         # Go ahead and update the screen with what we've drawn.
-    #if not menu.get_hp():
-    if not True:
+    if not menu.get_hp():
+    #if not True:
         player_alive = False
         paused = True
         running = False
