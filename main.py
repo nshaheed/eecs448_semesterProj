@@ -24,6 +24,9 @@ BLUE     = (   0,   0, 255)
 #defins max ups
 GAME_UPS = 60
 
+#difficulty enhancer
+diff = 400 #10 = hard 10000 = casual
+
 #player move speed
 PLAYER_VEL = 10
 
@@ -276,6 +279,10 @@ while not done:
     
     pygame.display.flip()
     # --- Limit to 60 frames per second
-    frame_counter = frame_counter+1    
+    frame_counter = frame_counter+1
+    if frame_counter >= diff:
+        enemy_hldr.update_spawn_rate()
+        frame_counter = 0
+        
     clock.tick_busy_loop(GAME_UPS)
 pygame.quit()
