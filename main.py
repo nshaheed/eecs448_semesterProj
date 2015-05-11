@@ -78,12 +78,12 @@ print("Art loaded!")
 
 # spawn a proj every other frame, returning 1.5 * pi when returning an angle
 def mvmtPtrn1(x):
-    if x % 8 == 0: # fire proj
+    if x % 16 == 0: # fire proj
         return (1.5 * math.pi)
     else:
         return None
         
-proj1    = projectile2.Projectile(0, 0, 15, 1.5 * math.pi, 10, p_proj_art_arr[0])
+proj1    = projectile2.Projectile(0, 0, 35, 1.5 * math.pi, 10, p_proj_art_arr[0])
 weap1    = weapon.weapon((0,0), proj1, mvmtPtrn1, screen, size)
 
 # object initialization
@@ -272,8 +272,8 @@ while not done:
         menu.draw_hud()
         
         # Go ahead and update the screen with what we've drawn.
-    if not menu.get_hp():
-    #if not True:
+    #if not menu.get_hp():
+    if not True:
         player_alive = False
         paused = True
         running = False
