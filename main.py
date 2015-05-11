@@ -309,8 +309,9 @@ while not done:
     pygame.display.flip()
     # --- Limit to 60 frames per second
     frame_counter = frame_counter+1
-    if frame_counter >= diff:
-        enemy_hldr.update_spawn_rate()
+    if frame_counter >= diff :
+        if running:
+            enemy_hldr.update_spawn_rate()
         frame_counter = 0
         
     clock.tick_busy_loop(GAME_UPS)
