@@ -12,7 +12,7 @@ class weapon(object):
         self.context         = context
         self.context_size    = context_size
         
-    def reset():
+    def reset(self):
         del self.proj[:]
         self.counter = 0
         

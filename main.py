@@ -185,6 +185,7 @@ while not done:
                             player_alive = True
                             menu.set_hp(100)
                             menu.set_points(0)
+                            weap1.reset()
                             player.__init__(player_ship,size,screen,weap1)
                             enemy_hldr.reset()
                             pygame.mixer.music.load("Assets/Music/main_menu.mp3")
