@@ -79,7 +79,7 @@ e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile_2.png"))#.conver
 e_proj_art_arr.append(pygame.image.load("Assets/Art/Eprojectile.png"))#.convert())
 print("Art loaded!")
 
-# spawn a proj every other frame, returning 1.5 * pi when returning an angle
+# spawn a proj every other frame, returning 1.5 * pi ("up") when returning an angle
 def mvmtPtrn1(x):
     if x % 16 == 0: # fire proj
         return (1.5 * math.pi)
@@ -143,26 +143,26 @@ while not done:
                     pygame.mixer.music.unpause()
                     paused = False
                     running = True
-            if event.key == pygame.K_a:
+            if event.key in (pygame.K_a, pygame.K_LEFT):
                 player.mod_x_vel(-1*PLAYER_VEL)
-            if event.key == pygame.K_d:
+            if event.key in (pygame.K_d, pygame.K_RIGHT):
                 player.mod_x_vel(PLAYER_VEL)
-            if event.key == pygame.K_w:
+            if event.key in (pygame.K_w, pygame.K_UP):
                 player.mod_y_vel(-1*PLAYER_VEL)
-            if event.key == pygame.K_s:
+            if event.key in (pygame.K_s, pygame.K_DOWN):
                 player.mod_y_vel(PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = True           
             #print("User pressed a key.")
         elif event.type == pygame.KEYUP:
             # If it is an arrow key, reset vector back to zero
-            if event.key == pygame.K_a:
+            if event.key in (pygame.K_a, pygame.K_LEFT):
                 player.mod_x_vel(PLAYER_VEL)
-            if event.key == pygame.K_d:
+            if event.key in (pygame.K_d, pygame.K_RIGHT):
                 player.mod_x_vel(-1*PLAYER_VEL)
-            if event.key == pygame.K_w:
+            if event.key in (pygame.K_w, pygame.K_UP):
                 player.mod_y_vel(PLAYER_VEL)
-            if event.key == pygame.K_s:
+            if event.key in (pygame.K_s, pygame.K_DOWN):
                 player.mod_y_vel(-1*PLAYER_VEL)
             if event.key == pygame.K_SPACE:
                 spawn_proj = False
