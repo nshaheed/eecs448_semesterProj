@@ -260,7 +260,11 @@ while not done:
         enemy_t.join()
 
         #begin the final updates and drawing
-        enemy_hldr.update_coll(player.get_weapon().get_proj_pos(),player.get_weapon().get_proj_art_size())
+        # collision detection & update points
+        points = enemy_hldr.update_coll(player.get_weapon().get_proj_pos(),player.get_weapon().get_proj_art_size())
+        # print(points)
+        menu.add_points(points)
+
         if enemy_hldr.update_proj_coll(player.get_pos()):
             menu.dec_hp()        
         enemy_hldr.draw_proj()
