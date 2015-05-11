@@ -272,6 +272,7 @@ while not done:
             if player_alive:
                 menu.draw_pause(player.get_pos())
             else:
+                pygame.mixer.music.fadeout(500)
                 menu.draw_game_over(player.get_pos())
 
     else:
