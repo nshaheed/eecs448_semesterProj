@@ -38,7 +38,7 @@ class enemy_holder(object):
         self.spawn_rate = 250
         
     def update_spawn_rate(self):
-        self.spawn_rate = spawn_rate-20
+        self.spawn_rate = self.spawn_rate-20
         if self.spawn_rate<2:
             self.spawn_rate=2
 
