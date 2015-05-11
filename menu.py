@@ -108,8 +108,9 @@ class menu_object (object):
             pygame.draw.rect(self.context, self.RED, self.menu_pos[2])
             
             self.context.blit(self.game_over_text, [98, 155])
-            self.context.blit(self.menu_return_text_1, [262, 595])
-            self.context.blit(self.menu_return_text_2, [203, 640])
+            self.context.blit(self.menu_font.render("Score: " + str(self.points),True, self.WHITE), [180,250])
+            self.context.blit(self.menu_return_text_1, [232, 595])
+            self.context.blit(self.menu_return_text_2, [213, 640])
 
         def draw_hud(self):
             self.context.blit(self.health_text, [15, 730])
